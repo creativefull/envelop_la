@@ -24,5 +24,37 @@
                 return '';
             }
         }
+
+        public function getTemplate($step) {
+            global $wpdb;
+            $userid = wp_get_current_user()->id;
+            $strx = "SELECT M.*, C.content FROM tbl_env_market as M INNER JOIN tbl_content_env AS C ON (C.userid = M.userid && C.step = M.seq) WHERE M.userid='$userid' AND M.seq=$step";
+            $query = $wpdb->get_results($strx);
+            $content = array();
+            if (count($query) > 0) {
+                foreach($query as $q) {
+                    $searchFormat = array(
+                        '[fname]',
+                        '[lname]',
+                        '[address1]',
+                        '[address2]',
+                        '[state]',
+                        '[city]',
+                        '[zipcode]'
+                    );
+                    $replaceFormat = array(
+                        $q->fname,
+                        $q->lname,
+                        $q->address1,
+                        $q->address2,
+                        $q->state,
+                        $q->city,
+                        $q->zipcode
+                    );
+                    $content[] = str_replace($searchFormat, $replaceFormat, $q->content);
+                }
+                return $content;
+            }
+        }
     }
 ?>

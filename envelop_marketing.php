@@ -15,6 +15,16 @@ if (!function_exists('envelope_marketing_la')) {
 
         add_shortcode('env_marketing_upload', 'env_shortcode_upload_func');
         add_shortcode('env_marketing', 'env_shortcode_func');
+        add_shortcode('env_marketing_print', 'env_print_func');
+    }
+
+    function env_print_func($atts) {
+        include 'updated_content.php';
+        include 'views/print_letter.php';
+        $Content = new UpdateContent();
+        $Letter = new PrintLetter();
+        $dataContent = $Content->getTemplate($atts['step']);
+        return $Letter->view($dataContent);
     }
 
     function env_shortcode_func($atts) {
@@ -32,7 +42,12 @@ if (!function_exists('envelope_marketing_la')) {
             $updatedContent = $Content->save($atts['step'], $_POST['editorContent']);
             print_r($updatedContent);
         }
-        return $Table->view(array('withEditor' => true, 'editorValue' => $Content->get($atts['step'])));
+        $option = array(
+            'withEditor' => true,
+            'editorValue' => $Content->get($atts['step']),
+            'print' => $atts['print']
+        );
+        return $Table->view($option);
     }
 
     function env_shortcode_upload_func($atts) {

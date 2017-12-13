@@ -43,16 +43,13 @@ class TableEVList {
                 ?>
             </tbody>
             <?php
-                if (count($this->data) >= 1) {
+                if (count($this->data) >= 1 && $options['print']) {
                     ?>
                         <tfoot>
                             <tr>
-                                <td colspan="5"></td>
+                                <td colspan="6"></td>
                                 <td>
-                                    <button class="btn btn-default">Print All Letters</button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-default">Print Envelope</button>
+                                    <a class="btn btn-default" href="<?php echo get_permalink($options['print']); ?>">Print All Letters</a>
                                 </td>
                             </tr>
                         </tfoot>
