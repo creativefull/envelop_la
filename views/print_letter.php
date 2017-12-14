@@ -17,7 +17,7 @@
                     }
                 }
             </style>
-            <div class="container" id="section-to-print">
+            <div id="section-to-print">
                 <?php
                     foreach($content as $c) {
                         ?>
