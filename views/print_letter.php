@@ -3,10 +3,10 @@
         public function view($content) {
             ?>
             <style>
-                header {
+                /*header {
                     visibility : hidden !important;
                     display : none;
-                }
+                }*/
                 .site-content {
                     padding : 0px !important;
                 }
