@@ -3,11 +3,18 @@
         public function view($content) {
             ?>
             <style>
+                header {
+                    visibility : hidden !important;
+                    display : none;
+                }
+                .site-content {
+                    padding : 0px !important;
+                }
                 @media print
                 {
                     body * {
                         visibility: hidden;
-                        margin: 0px !important;
+                        margin: 0em;
                     }
                     body p {
                         padding-bottom : 12px;
@@ -20,7 +27,7 @@
                         size: auto;   /* auto is the initial value */ 
 
                         /* this affects the margin in the printer settings */ 
-                        margin: 25mm 25mm 25mm 25mm;                        
+                        margin: 35mm 25mm 25mm 25mm;                        
                     }
                 }
             </style>
