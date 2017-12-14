@@ -7,6 +7,8 @@
                 {
                     body * {
                         visibility: hidden;
+                        margin: 0px !important;
+                        padding: 3em;
                     }
                     body p {
                         padding-bottom : 12px;
