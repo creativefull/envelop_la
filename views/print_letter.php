@@ -8,7 +8,7 @@
                     body * {
                         visibility: hidden;
                     }
-                    .page-break  { display:block; page-break-before:always; visibility: visible}
+                    .page-break  { display:block; page-break-before:always; visibility: visible; margin-bottom: 4em}
                     #section-to-print, #section-to-print * {
                         visibility: visible;
                     }
@@ -20,7 +20,7 @@
                         ?>
                         <div class="row">
                             <div class="col-md-12">
-                                <?= $c; ?>
+                                <?= wpautop($c); ?>
                             </div>
                             <div class="page-break"></div>
                         </div>
