@@ -8,7 +8,6 @@
                     body * {
                         visibility: hidden;
                         margin: 0px !important;
-                        padding: 3em;
                     }
                     body p {
                         padding-bottom : 12px;
@@ -16,6 +15,12 @@
                     .page-break  { display:block; page-break-before:always; visibility: visible; margin-bottom: 4em}
                     #section-to-print, #section-to-print * {
                         visibility: visible;
+                    }
+                    @page {
+                        size: auto;   /* auto is the initial value */ 
+
+                        /* this affects the margin in the printer settings */ 
+                        margin: 25mm 25mm 25mm 25mm;                        
                     }
                 }
             </style>
