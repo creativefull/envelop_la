@@ -8,6 +8,9 @@
                     body * {
                         visibility: hidden;
                     }
+                    body p {
+                        padding-bottom : 12px;
+                    }
                     .page-break  { display:block; page-break-before:always; visibility: visible; margin-bottom: 4em}
                     #section-to-print, #section-to-print * {
                         visibility: visible;
