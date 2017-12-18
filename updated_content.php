@@ -53,7 +53,7 @@ Can we have an area where the student puts:
         public function getTemplate($step) {
             global $wpdb;
             global $current_user;
-            get_current_user_info();
+            get_currentuserinfo();
 
             $userinfo = wp_get_current_user();
             $name = $current_user->user_firstname . " " . $current_user->user_lastname;
