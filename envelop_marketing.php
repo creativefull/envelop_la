@@ -47,7 +47,7 @@ if (!function_exists('envelope_marketing_la')) {
 
         // IF CONTENT EDITED
         if ($_POST['editContent']) {
-            $updatedContent = $Content->save($atts['step'], $_POST['editorContent']);
+            $updatedContent = $Content->save($_POST['step'], $_POST['editorContent' . $atts['step']]);
             print_r($updatedContent);
         }
 
@@ -68,7 +68,8 @@ if (!function_exists('envelope_marketing_la')) {
             'withEditor' => true,
             'editorValue' => $Content->get($atts['step']),
             'print' => $atts['print'],
-            'move' => $atts['move']
+            'move' => $atts['move'],
+            'step' => $atts['step']
         );
         return $Table->view($option);
     }

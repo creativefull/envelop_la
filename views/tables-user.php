@@ -101,12 +101,13 @@ class TableEVList {
         if ($options['withEditor']) {
             ?>
             <form action="" method="POST">
-            <?php
-            wp_editor($options['editorValue'], 'editorContent');
-            ?>
-            <br/>
-            <input type="hidden" name="editContent" value="yes"/>
-            <input type="submit" class="btn btn-primary" name="submitContent" value="SAVE CONTENT"/>
+                <?php
+                    wp_editor($options['editorValue'], 'editorContent' . $options['step']);
+                ?>
+                <br/>
+                <input type="hidden" name="editContent" value="yes"/>
+                <input type="hidden" name="step" value="<?= $options['step']; ?>"/>
+                <input type="submit" class="btn btn-primary" name="submitContent" value="MODIFY CONTENT"/>
             </form>
             <?php
         }
