@@ -31,6 +31,11 @@
                     }
                 }
             </style>
+            <div class="row">
+                <div class="pull-right">
+                    <a href="javascript:history.go(-1)" title="Back" class="btn btn-default">Back</a>
+                </div>
+            </div>
             <div id="section-to-print">
                 <?php
                     foreach($content as $c) {
