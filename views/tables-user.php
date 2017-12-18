@@ -22,14 +22,14 @@ class TableEVList {
                     <?php
                         if ($options['move']) {
                             ?>
-                            <td>
+                            <th>
 
-                            </td>
+                            </th>
                             <?php
                         }
                         foreach($this->header as $column) {
                             ?>
-                            <td><?= $column; ?></td>
+                            <th><?= $column; ?></th>
                             <?php
                         }
                     ?>
