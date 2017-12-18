@@ -16,7 +16,6 @@ function create_table_em() {
     `seq` INT NULL,
     `fname` VARCHAR(200) NULL,
     `lname` VARCHAR(200) NULL,
-    `company` VARCHAR(200) NULL,
     `address1` VARCHAR(200) NULL,
     `address2` VARCHAR(200) NULL,
     `state` VARCHAR(45) NULL,

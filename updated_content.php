@@ -43,6 +43,8 @@ Can we have an area where the student puts:
             $strx = "SELECT M.*, C.content FROM tbl_env_market as M INNER JOIN tbl_content_env AS C ON (C.userid = M.userid && C.step = M.seq) WHERE M.userid='$userinfo->id' AND M.seq=$step";
             $query = $wpdb->get_results($strx);
             $content = array();
+            $companyName = get_user_meta($userid, 'company', true);
+
             if (count($query) > 0) {
                 foreach($query as $q) {
                     $searchFormat = array(
@@ -59,7 +61,7 @@ Can we have an area where the student puts:
                     $replaceFormat = array(
                         $q->fname,
                         $q->lname,
-                        $q->company,
+                        $companyName,
                         $q->address1,
                         $q->address2,
                         $q->state,
