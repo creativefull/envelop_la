@@ -68,13 +68,16 @@ class TableEVList {
                     ?>
                         <tfoot>
                             <tr>
-                                <td colspan="6"></td>
+                                <td colspan="<?= $options['move'] ? 5 : 6; ?>"></td>
                                 <td>
                                     <a class="btn btn-default" href="<?php echo get_permalink($options['print']); ?>">Print All Letters</a>
                                 </td>
                                 <?php
                                     if ($options['move']) {
                                         ?>
+                                        <td>
+                                            <a class="btn btn-default" href="<?php echo get_permalink($options['print']); ?>?move=<?= $options['move']; ?>">Print All Letters & Move</a>
+                                        </td>
                                         <td>
                                             <button type="submit" value="<?= $options['move']; ?>" name="submitMove" id="btnMove" class="btn btn-primary">Move to step <?= $options['move']; ?></button>
                                         </td>

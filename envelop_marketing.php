@@ -21,9 +21,14 @@ if (!function_exists('envelope_marketing_la')) {
     function env_print_func($atts) {
         include 'updated_content.php';
         include 'views/print_letter.php';
+        include 'move.php';
+        $Move = new MoveUser();
         $Content = new UpdateContent();
         $Letter = new PrintLetter();
         $dataContent = $Content->getTemplate($atts['step']);
+        if (@$_GET['move']) {
+            $Move->all($atts['step'], $atts['step'] + 1);
+        }
         return $Letter->view($dataContent);
     }
 
