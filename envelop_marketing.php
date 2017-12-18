@@ -44,11 +44,7 @@ if (!function_exists('envelope_marketing_la')) {
 
         $headers = array('First Name', 'Last Name', 'Company', 'Address 1', 'Address 2', 'City', 'State', 'Zipcode');
         $theData = $wpdb->get_results("SELECT * FROM tbl_env_market WHERE userid='" . $userid . "' AND seq='" . $atts['step'] . "' ORDER BY created_at DESC");
-        if (count($theData) >= 1) {
-            $Table = new TableEVList($headers, $theData);
-        } else {
-            echo "<p class=\"alert alert-warning\">No Contact Found</p>";
-        }
+        $Table = new TableEVList($headers, $theData);
 
         // IF CONTENT EDITED
         if ($_POST['editContent']) {
@@ -76,7 +72,11 @@ if (!function_exists('envelope_marketing_la')) {
             'move' => $atts['move'],
             'step' => $atts['step']
         );
-        return $Table->view($option);
+        if (count($theData) >= 1) {
+            return $Table->view($option);
+        } else {
+            echo "<p class=\"alert alert-warning\">No Contact Found</p>";
+        }
     }
 
     function env_shortcode_upload_func($atts) {
