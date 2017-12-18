@@ -7,10 +7,22 @@
             if (count($query1) > 0 ) {
                 // UPDATE THE CONTENT
                 $wpdb->query("UPDATE tbl_content_env SET content='" . $content . "' WHERE step='$step' AND userid='" . $userid . "'");
-                return 'done';
+                ?>
+                <script>
+                    setTimeout(function() {
+                        window.location.replace(window.location.href)
+                    }, 100);
+                </script>
+                <?php
             } else {
                 $wpdb->query("INSERT INTO tbl_content_env (userid, step, content) VALUES ('" . $userid . "', '" . $step . "', '" . $content . "')") or die ("error create new template");
-                return 'done';
+                ?>
+                <script>
+                    setTimeout(function() {
+                        window.location.replace(window.location.href)
+                    }, 100);
+                </script>
+                <?php
             }
         }
 
