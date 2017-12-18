@@ -25,6 +25,7 @@ if (!function_exists('envelope_marketing_la')) {
         $Move = new MoveUser();
         $Content = new UpdateContent();
         $Letter = new PrintLetter();
+        $userid = wp_get_current_user()->id;
         $dataContent = $Content->getTemplate($atts['step']);
         if (@$_GET['move']) {
             $Move->all($atts['step'], $atts['step'] + 1);
@@ -80,6 +81,18 @@ if (!function_exists('envelope_marketing_la')) {
         $CSV = new ReadCSV();
         $userid = wp_get_current_user()->id;
         $seq = 1;
+
+        // UPDATE COMPANY NAME
+        if (@$_POST['submitCompany']) {
+            update_user_meta($userid, 'company', $_POST['companyName']);
+            ?>
+            <script>
+                setTimeout(function() {
+                    window.location.replace(window.location.href)
+                }, 100);
+            </script>
+            <?php
+        }
 
         if ($_POST['submit']) {
 

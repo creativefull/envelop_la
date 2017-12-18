@@ -10,6 +10,7 @@ class TableEVList {
     }
 
     public function view($options) {
+        $userid = wp_get_current_user()->id;
         if ($options['move']) {
             ?>
             <form action="" method="POST">
