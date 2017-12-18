@@ -41,7 +41,7 @@ if (!function_exists('envelope_marketing_la')) {
         include 'move.php';
         $Move = new MoveUser();
 
-        $headers = array('First Name', 'Last Name', 'Address 1', 'Address 2', 'City', 'State', 'Zipcode');
+        $headers = array('First Name', 'Last Name', 'Company', 'Address 1', 'Address 2', 'City', 'State', 'Zipcode');
         $theData = $wpdb->get_results("SELECT * FROM tbl_env_market WHERE userid='" . $userid . "' AND seq='" . $atts['step'] . "' ORDER BY created_at DESC");
         $Table = new TableEVList($headers, $theData);
 

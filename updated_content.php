@@ -21,7 +21,19 @@
             if (count($query) > 0) {
                 return $query[0]->content;
             } else {
-                return '';
+                $html = "<p>What about where it says:</p><br/>
+<p>
+Hello, my name is [name] with [company]
+</p>
+<br/>
+<p>
+Can we have an area where the student puts:
+</p>
+
+<br/>
+<p>Name: Kevin George</p><br/>
+<p>Company: XYZ Solutions</p>";
+                return $html;
             }
         }
 
@@ -36,6 +48,7 @@
                     $searchFormat = array(
                         '[fname]',
                         '[lname]',
+                        '[company]',
                         '[address1]',
                         '[address2]',
                         '[state]',

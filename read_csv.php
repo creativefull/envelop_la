@@ -32,11 +32,12 @@ class ReadCSV {
                     if ($row > 0) {
                         $csvArray[$row]['fname'] = $data[0];
                         $csvArray[$row]['lname'] = $data[1];
-                        $csvArray[$row]['address1'] = $data[2];
-                        $csvArray[$row]['address2'] = $data[3];
-                        $csvArray[$row]['state'] = $data[4];
-                        $csvArray[$row]['city'] = $data[5];
-                        $csvArray[$row]['zipcode'] = $data[6];
+                        $csvArray[$row]['company'] = $data[2];
+                        $csvArray[$row]['address1'] = $data[3];
+                        $csvArray[$row]['address2'] = $data[4];
+                        $csvArray[$row]['state'] = $data[5];
+                        $csvArray[$row]['city'] = $data[6];
+                        $csvArray[$row]['zipcode'] = $data[7];
                     }
                     $row++;
                 }

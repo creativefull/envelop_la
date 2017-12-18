@@ -52,6 +52,7 @@ class TableEVList {
                                 ?>
                                 <td><?= $theData->fname; ?></td>
                                 <td><?= $theData->lname; ?></td>
+                                <td><?= $theData->company; ?></td>
                                 <td><?= $theData->address1; ?></td>
                                 <td><?= $theData->address2; ?></td>
                                 <td><?= $theData->city; ?></td>
