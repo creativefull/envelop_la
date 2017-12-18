@@ -1,3 +1,7 @@
+<?php
+    $companyName = get_user_meta($userid, 'company', true);
+    if ($companyName) {
+?>
 <div class="panel panel-default">
     <div class="panel-heading">
         Upload CSV Data
@@ -26,3 +30,10 @@
         </div>
     </div>
 </div>
+<?php
+    } else {
+        ?>
+        <p class="alert alert-warning">Before upload the data, you need to edit your company name on your profile</p>
+        <?php
+    }
+?>

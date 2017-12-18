@@ -37,6 +37,7 @@ class TableEVList {
             </thead>
             <tbody>
                 <?php
+                    $companyName = get_user_meta($userid, 'company', true);
                     if (count($this->data) >= 1) {
                         foreach($this->data as $theData) {
                             ?>
@@ -52,7 +53,7 @@ class TableEVList {
                                 ?>
                                 <td><?= $theData->fname; ?></td>
                                 <td><?= $theData->lname; ?></td>
-                                <td><?= $theData->company; ?></td>
+                                <td><?= $companyName; ?></td>
                                 <td><?= $theData->address1; ?></td>
                                 <td><?= $theData->address2; ?></td>
                                 <td><?= $theData->city; ?></td>
