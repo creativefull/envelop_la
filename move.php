@@ -1,8 +1,15 @@
 <?php
     class MoveUser {
-        public function bystep($step) {
+        public function bystep($users, $step) {
             global $wpdb;
-            $nextStep = $step+1;
+            function convertWhere($item) {
+                return("'$item'");
+            }
+            $arrayIn = array_map("convertWhere", $users);
+            $where = "(" . join(',', $arrayIn) . ")";
+            $query = "UPDATE tbl_env_market SET seq='" . $step . "' WHERE id_env_market IN $where";
+            $query1 = $wpdb->query($query) or die ("Something wrong");
+            return array('success' => true);
         }
     }
 ?>

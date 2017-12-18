@@ -33,19 +33,37 @@ if (!function_exists('envelope_marketing_la')) {
         include 'views/tables-user.php';
         include 'updated_content.php';
         $Content = new UpdateContent();
+        include 'move.php';
+        $Move = new MoveUser();
 
         $headers = array('First Name', 'Last Name', 'Address 1', 'Address 2', 'City', 'State', 'Zipcode');
         $theData = $wpdb->get_results("SELECT * FROM tbl_env_market WHERE userid='" . $userid . "' AND seq='" . $atts['step'] . "' ORDER BY created_at DESC");
         $Table = new TableEVList($headers, $theData);
 
+        // IF CONTENT EDITED
         if ($_POST['editContent']) {
             $updatedContent = $Content->save($atts['step'], $_POST['editorContent']);
             print_r($updatedContent);
         }
+
+        // IF STUDENT MOVE
+        if ($_POST['submitMove']) {
+            extract($_POST);
+            $MoveStudent = $Move->bystep($moveUser, $atts['move']);
+            ?>
+            <p class="alert alert-success">Success move user to step <?= $atts['move']; ?>, please wait to reload this page</p>
+            <script>
+                setTimeout(function() {
+                    window.location.replace(window.location.href)
+                }, 500);
+            </script>
+            <?php
+        }
         $option = array(
             'withEditor' => true,
             'editorValue' => $Content->get($atts['step']),
-            'print' => $atts['print']
+            'print' => $atts['print'],
+            'move' => $atts['move']
         );
         return $Table->view($option);
     }

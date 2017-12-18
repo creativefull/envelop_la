@@ -10,11 +10,23 @@ class TableEVList {
     }
 
     public function view($options) {
+        if ($options['move']) {
+            ?>
+            <form action="" method="POST">
+            <?php
+        }
         ?>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <?php
+                        if ($options['move']) {
+                            ?>
+                            <td>
+
+                            </td>
+                            <?php
+                        }
                         foreach($this->header as $column) {
                             ?>
                             <td><?= $column; ?></td>
@@ -29,6 +41,15 @@ class TableEVList {
                         foreach($this->data as $theData) {
                             ?>
                             <tr>
+                                <?php
+                                    if ($options['move']) {
+                                        ?>
+                                        <td>
+                                            <input type="checkbox" name="moveUser[]" value="<?= $theData->id_env_market; ?>"/>
+                                        </td>
+                                        <?php
+                                    }
+                                ?>
                                 <td><?= $theData->fname; ?></td>
                                 <td><?= $theData->lname; ?></td>
                                 <td><?= $theData->address1; ?></td>
@@ -51,6 +72,15 @@ class TableEVList {
                                 <td>
                                     <a class="btn btn-default" href="<?php echo get_permalink($options['print']); ?>">Print All Letters</a>
                                 </td>
+                                <?php
+                                    if ($options['move']) {
+                                        ?>
+                                        <td>
+                                            <button type="submit" value="<?= $options['move']; ?>" name="submitMove" id="btnMove" class="btn btn-primary">Move to step <?= $options['move']; ?></button>
+                                        </td>
+                                        <?php
+                                    }
+                                ?>
                             </tr>
                         </tfoot>
                     <?php
@@ -58,6 +88,11 @@ class TableEVList {
             ?>
         </table>
         <?php
+        if ($options['move']) {
+            ?>
+            </form>
+            <?php
+        }
 
         if ($options['withEditor']) {
             ?>
