@@ -6,8 +6,7 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="alert alert-default">
-                    <li>Format should be xxxx, yyyy, zzz</li>
-                    <li>Format should be xxxx, yyyy, zzz</li>
+                    <li>Format should be First Name, Last Name, Company, Address 1, Address 2, City, State, Zipcode</li>
                 </ul>
             </div>
         </div>

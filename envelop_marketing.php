@@ -95,7 +95,7 @@ if (!function_exists('envelope_marketing_la')) {
             $seq = $atts['step'];
 
             foreach($dataCSV as $d) {
-                $object = array("('" . $userid . "', '".$seq."','".$d['fname']."','".$d['lname']."','".$d['address1']."','".$d['address2']."','".$d['city']."','".$d['state']."','".$d['zipcode']."')");
+                $object = array("('" . $userid . "', '".$seq."','".$d['fname']."','".$d['lname']."','" . $d['company'] . "', '" .$d['address1']."','".$d['address2']."','".$d['city']."','".$d['state']."','".$d['zipcode']."')");
                 $dataQuery[] = join(",", $object);
             }
 

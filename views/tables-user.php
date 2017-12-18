@@ -69,7 +69,7 @@ class TableEVList {
                     ?>
                         <tfoot>
                             <tr>
-                                <td colspan="<?= $options['move'] ? 5 : 6; ?>"></td>
+                                <td colspan="<?= $options['move'] ? 6 : 5; ?>"></td>
                                 <td>
                                     <a class="btn btn-default" href="<?php echo get_permalink($options['print']); ?>">Print All Letters</a>
                                 </td>
