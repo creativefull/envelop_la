@@ -63,12 +63,6 @@ class TableEVList {
                             </tr>
                             <?php
                         }
-                    } else {
-                        ?>
-                        <p class="alert alert-warning">
-                            No contact found
-                        </p>
-                        <?php
                     }
                 ?>
             </tbody>

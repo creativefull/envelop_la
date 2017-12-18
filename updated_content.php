@@ -53,7 +53,7 @@ Can we have an area where the student puts:
         public function getTemplate($step) {
             global $wpdb;
             $userinfo = wp_get_current_user();
-            $name = $userinfo->user_firstname . " " . $userInfo->user_lastname;
+            $name = $userinfo->first_name . " " . $userInfo->last_name;
 
             $strx = "SELECT M.*, C.content FROM tbl_env_market as M INNER JOIN tbl_content_env AS C ON (C.userid = M.userid && C.step = M.seq) WHERE M.userid='$userinfo->id' AND M.seq=$step";
             $query = $wpdb->get_results($strx);

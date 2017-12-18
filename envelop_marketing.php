@@ -44,7 +44,11 @@ if (!function_exists('envelope_marketing_la')) {
 
         $headers = array('First Name', 'Last Name', 'Company', 'Address 1', 'Address 2', 'City', 'State', 'Zipcode');
         $theData = $wpdb->get_results("SELECT * FROM tbl_env_market WHERE userid='" . $userid . "' AND seq='" . $atts['step'] . "' ORDER BY created_at DESC");
-        $Table = new TableEVList($headers, $theData);
+        if (count($theData) >= 1) {
+            $Table = new TableEVList($headers, $theData);
+        } else {
+            echo "<p class=\"alert alert-warning\">No Contact Found</p>";
+        }
 
         // IF CONTENT EDITED
         if ($_POST['editContent']) {
