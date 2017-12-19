@@ -100,30 +100,79 @@ class TableEVList {
 
         if ($options['withEditor']) {
             ?>
+                <div class="">
+                    <div class="panel panel-primary">
+                    <div class="panel-heading">LETTER CONTENT SHORTCODE</div>
+                    <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th> SHORTCODE </th>
+                            <th> CONTACT DATA </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[fname]</td>
+                            <td>Client First Name</td>
+                        </tr>
+                        <tr>
+                            <td>[lname]</td>
+                            <td>Client Last Name</td>
+                        </tr>
+                        <tr>
+                            <td>[address1]</td>
+                            <td>Client Address 1</td>
+                        </tr>
+                        <tr>
+                            <td>[address2]</td>
+                            <td>Client Address 2</td>
+                        </tr>
+                        <tr>
+                            <td>[state]</td>
+                            <td>Client State</td>
+                        </tr>
+                        <tr>
+                            <td>[city]</td>
+                            <td>Client City</td>
+                        </tr>
+                        <tr>
+                            <td>[zipcode]</td>
+                            <td>Client ZipCode</td>
+                        </tr>
+                        <tr>
+                            <td>[myname]</td>
+                            <td>Your Name</td>
+                        </tr>
+                        <tr>
+                            <td>[myphone]</td>
+                            <td>Your Phone</td>
+                        </tr>
+                        <tr>
+                            <td>[mywebsite]</td>
+                            <td>Your Website</td>
+                        </tr>
+                        <tr>
+                            <td>[mycompany]</td>
+                            <td>Your Company</td>
+                        </tr>
+                        <tr>
+                            <td>[myemail]</td>
+                            <td>Your Email</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                        
+                    </div>
+                </div>
             <form action="" method="POST">
                 <?php
-                    wp_editor($options['editorValue'], 'editorContent' . $options['step']);
+                    $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
+                    wp_editor($options['editorValue'], 'editorContent' . $options['step'], $settings);
                 ?>
-                <div>
-                    <ul>
-                        <li>[fname] - User First Name</li>
-                        <li>[lname] - User Last Name</li>
-                        <li>[address1] - User Address 1</li>
-                        <li>[address2] - User Address 2</li>
-                        <li>[state] - User State</li>
-                        <li>[city] - User City</li>
-                        <li>[zipcode] - User Zip Code</li>
-                        <li>[myname] - My Name</li>
-                        <li>[myphone] - My Phone</li>
-                        <li>[mywebsite] - My Website</li>
-                        <li>[mycompany] - My Company</li>
-                        <li>[myemail] - My Email</li>
-                    </ul>
-                </div>
                 <br/>
                 <input type="hidden" name="editContent" value="yes"/>
                 <input type="hidden" name="step" value="<?= $options['step']; ?>"/>
-                <input type="submit" class="btn btn-primary" name="submitContent" value="MODIFY CONTENT"/>
+                <input type="submit" class="btn btn-primary" name="submitContent" value="MODIFY LETTER"/>
             </form>
             <?php
         }
