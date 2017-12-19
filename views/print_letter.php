@@ -19,6 +19,10 @@
                     body p {
                         padding-bottom : 12px;
                     }
+                    .hide-print {
+                        visibility: hidden !important;
+                        display: none;
+                     }
                     .page-break  { display:block; page-break-before:always; visibility: visible; margin-bottom: 4em}
                     #section-to-print, #section-to-print * {
                         visibility: visible;
@@ -31,16 +35,14 @@
                     }
                 }
             </style>
-            <div class="row">
-                <div class="pull-right">
-                    <a href="javascript:history.go(-1)" title="Back" class="btn btn-default">Back</a>
-                </div>
-            </div>
             <div id="section-to-print">
                 <?php
                     foreach($content as $c) {
                         ?>
                         <div class="row">
+                            <div class="pull-right hide-print">
+                                <a href="javascript:history.go(-1)" title="Back" class="btn btn-default">Back</a>
+                            </div>
                             <div class="col-md-12">
                                 <?= wpautop($c); ?>
                             </div>
