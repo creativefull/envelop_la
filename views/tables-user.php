@@ -73,13 +73,13 @@ class TableEVList {
                             <tr>
                                 <td colspan="<?= $options['move'] ? 5 : 4; ?>"></td>
                                 <td>
-                                    <a class="btn btn-default" href="<?php echo get_permalink($options['print']); ?>">Print All Letters</a>
+                                    <a class="btn btn-primary" href="<?php echo get_permalink($options['print']); ?>">Print Only</a>
                                 </td>
                                 <?php
                                     if ($options['move']) {
                                         ?>
                                         <td>
-                                            <a class="btn btn-default" href="<?php echo get_permalink($options['print']); ?>?move=<?= $options['move']; ?>">Print All Letters & Move</a>
+                                            <a class="btn btn-primary" href="<?php echo get_permalink($options['print']); ?>?move=<?= $options['move']; ?>">Print & Move</a>
                                         </td>
                                         <td>
                                             <button type="submit" value="<?= $options['move']; ?>" name="submitMove" id="btnMove" class="btn btn-primary">Move to step <?= $options['move']; ?></button>
@@ -159,7 +159,7 @@ class TableEVList {
                         </tr>
                         <tr>
                             <td>[myemail]</td>
-                            <td>Your Email (<?= $current_user->email; ?>)</td>
+                            <td>Your Email (<?= $current_user->user_email; ?>)</td>
                         </tr>
                     </tbody>
                     </table>
@@ -168,7 +168,7 @@ class TableEVList {
                 </div>
             <form action="" method="POST">
                 <?php
-                    $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
+                    $settings = array( 'media_buttons' => false, 'editor_height' => '300' );
                     wp_editor($options['editorValue'], 'editorContent' . $options['step'], $settings);
                 ?>
                 <br/>

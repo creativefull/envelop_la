@@ -76,7 +76,7 @@
             $content = array();
             $company = get_user_meta($userinfo->ID, 'company', true);
             $website = $current_user->user_url;
-            $email = $current_user->email;
+            $email = $current_user->user_email;
             $phone = get_user_meta($userinfo->ID, 'phone', true);
 
             if (count($query) > 0) {
