@@ -40,9 +40,6 @@
                     foreach($content as $c) {
                         ?>
                         <div class="row">
-                            <div class="pull-right hide-print">
-                                <a href="javascript:history.go(-1)" title="Back" class="btn btn-default">Back</a>
-                            </div>
                             <div class="col-md-12">
                                 <?= wpautop($c); ?>
                             </div>
