@@ -1,7 +1,9 @@
 <?php
     $userid = wp_get_current_user()->id;
+    $userdata = get_userdata($userid);
     $companyName = get_user_meta($userid, 'company', true);
-    if ($companyName) {
+    $phoneName = get_user_meta($userid, 'phone', true);
+    if ($companyName && $phoneName) {
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -35,15 +37,19 @@
 <?php
     } else {
         ?>
-        <p class="alert alert-warning">Before upload the data, you need to edit your company name on your profile</p>
+        <p class="alert alert-warning">Before upload the data, you need to edit your company name, your phone and your website(if any) on your profile</p>
         <form action="" method="POST">
             <div class="form-group">
                 <label>Company Name</label>
-                <input type="text" name="companyName" class="form-control"/>
+                <input type="text" name="companyName" class="form-control" value="<?= $companyName; ?>" />
             </div>
             <div class="form-group">
                 <label>Phone</label>
-                <input type="phone" name="phoneNumber" class="form-control"/>
+                <input type="phone" name="phoneNumber" class="form-control" value="<?= $phoneName; ?>"/>
+            </div>
+            <div class="form-group">
+                <label>Website</label>
+                <input type="website" name="websiteURL" class="form-control" value="<?= $userdata->user_url ; ?>" />
             </div>
             <input type="submit" name="submitCompany" value="UPDATE"/>
         </form>

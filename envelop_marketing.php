@@ -113,6 +113,7 @@ if (!function_exists('envelope_marketing_la')) {
         if (@$_POST['submitCompany']) {
             update_user_meta($userid, 'company', $_POST['companyName']);
             update_user_meta($userid, 'phone', $_POST['phoneNumber']);
+            wp_update_user( array( 'ID' => $userid, 'user_url' => $_POST['websiteURL'] ) );
             ?>
             <script>
                 setTimeout(function() {
