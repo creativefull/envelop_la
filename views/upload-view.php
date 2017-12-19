@@ -37,8 +37,14 @@
         ?>
         <p class="alert alert-warning">Before upload the data, you need to edit your company name on your profile</p>
         <form action="" method="POST">
-            <label>Company Name</label>
-            <input type="text" name="companyName" class="form-control"/>
+            <div class="form-group">
+                <label>Company Name</label>
+                <input type="text" name="companyName" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="phone" name="phoneNumber" class="form-control"/>
+            </div>
             <input type="submit" name="submitCompany" value="UPDATE"/>
         </form>
         <?php
