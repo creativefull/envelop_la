@@ -26,6 +26,14 @@
             }
         }
 
+        public function all() {
+            global $wpdb;
+            $userInfo = wp_get_current_user();
+            $userid = $userInfo->id;
+            $query = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE userid='" . $userid . "' ORDER BY step");
+            return $query;
+        }
+
         public function get($step) {
             global $wpdb;
             $userInfo = wp_get_current_user();

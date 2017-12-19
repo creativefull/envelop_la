@@ -15,7 +15,30 @@ if (!function_exists('envelope_marketing_la')) {
 
         add_shortcode('env_marketing_upload', 'env_shortcode_upload_func');
         add_shortcode('env_marketing', 'env_shortcode_func');
+        add_shortcode('env_marketing_content', 'env_shortcode_content_func');
         add_shortcode('env_marketing_print', 'env_print_func');
+    }
+
+    function env_shortcode_content_func($atts) {
+        include_once 'updated_content.php';
+        include_once 'views/contents.php';
+        $Content = new UpdateContent();
+        $ContentView = new ENVContent();
+        // IF MODIFY CONTENT
+        if (@$_POST['submitContent']) {
+            $updatedContent = $Content->save($_POST['step'], $_POST['editorContent' . $_POST['step']]);
+            print_r($updatedContent);
+        }
+        if (@$_GET['id']) {
+            $data = array(
+                "content" => $Content->get($_GET['id']),
+                "step" => $_GET['id']
+            );
+            $ContentView->edit($data);
+        } else {
+            $data = $Content->all();
+            $ContentView->view($data);
+        }
     }
 
     function env_print_func($atts) {
