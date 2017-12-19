@@ -20,6 +20,7 @@
             <div class="col-md-12">
                 <form action="" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
+                        <input type="hidden" name="step" value="<?= $atts['step']; ?>"/>
                         <label class="label-control" for="file">Select File</label>
                         <input type="file" class="form-control" id="file" name="csv_file"/>
                     </div>

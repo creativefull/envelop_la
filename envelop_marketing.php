@@ -110,17 +110,17 @@ if (!function_exists('envelope_marketing_la')) {
             // if (count($resultData) >= 1 ) {
             //     $seq = $resultData[0]->seq + 1;
             // }
-            $seq = $atts['step'];
+            $seq = $_POST['step'];
 
             $companyName = get_user_meta($userid, 'company', true);
             foreach($dataCSV as $d) {
-                $object = array("('" . $userid . "', '".$seq."','".$d['fname']."','".$d['lname']."','" . $companyName . "', '" .$d['address1']."','".$d['address2']."','".$d['city']."','".$d['state']."','".$d['zipcode']."')");
+                $object = array("('" . $userid . "', '".$seq."','".$d['fname']."','".$d['lname']."','" .$d['address1']."','".$d['address2']."','".$d['city']."','".$d['state']."','".$d['zipcode']."')");
                 $dataQuery[] = join(",", $object);
             }
 
             $dataHasil = (join(",", $dataQuery));
             $querySQL = "INSERT INTO tbl_env_market (userid, seq, fname, lname, address1, address2, city, state, zipcode) VALUES $dataHasil";
-            $wpdb->query($querySQL);
+            $wpdb->query($querySQL) or die ('Something wrong');
             // echo "<pre>";
             // echo "</pre>";
             echo "<p class=\"alert alert-success\">Success Upload User in Squence " . $atts['step'] . "</p>";
