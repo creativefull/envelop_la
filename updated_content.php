@@ -64,6 +64,7 @@ Can we have an area where the student puts:
             $content = array();
             $company = get_user_meta($userinfo->ID, 'company', true);
             $website = $current_user->user_url;
+            $email = $current_user->email;
             $phone = get_user_meta($userinfo->ID, 'phone', true);
 
             if (count($query) > 0) {
@@ -79,7 +80,8 @@ Can we have an area where the student puts:
                         '[zipcode]',
                         '[myname]',
                         '[myphone]',
-                        '[mywebsite]'
+                        '[mywebsite]',
+                        '[myemail]'
                     );
                     $replaceFormat = array(
                         $q->fname,

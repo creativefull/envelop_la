@@ -106,6 +106,22 @@ class TableEVList {
                 <?php
                     wp_editor($options['editorValue'], 'editorContent' . $options['step']);
                 ?>
+                <div>
+                    <ul>
+                        <li>[fname] - User First Name</li>
+                        <li>[lname] - User Last Name</li>
+                        <li>[address1] - User Address 1</li>
+                        <li>[address2] - User Address 2</li>
+                        <li>[state] - User State</li>
+                        <li>[city] - User City</li>
+                        <li>[zipcode] - User Zip Code</li>
+                        <li>[myname] - My Name</li>
+                        <li>[myphone] - My Phone</li>
+                        <li>[mywebsite] - My Website</li>
+                        <li>[mycompany] - My Company</li>
+                        <li>[myemail] - My Email</li>
+                    </ul>
+                </div>
                 <br/>
                 <input type="hidden" name="editContent" value="yes"/>
                 <input type="hidden" name="step" value="<?= $options['step']; ?>"/>
