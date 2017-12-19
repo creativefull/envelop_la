@@ -66,20 +66,24 @@
             $strx = "SELECT M.*, C.content FROM tbl_env_market as M INNER JOIN tbl_content_env AS C ON (C.userid = M.userid && C.step = M.seq) WHERE M.userid='$userinfo->id' AND M.seq=$step";
             $query = $wpdb->get_results($strx);
             $content = array();
-            $company = get_user_meta($current_user->ID, 'company', true);
+            $companyName = get_user_meta($userid, 'company', true);
+            $websiteName = get_user_meta($userid, 'website', true);
+            $phone = get_user_meta($userid, 'phone', true);
 
             if (count($query) > 0) {
                 foreach($query as $q) {
                     $searchFormat = array(
                         '[fname]',
                         '[lname]',
-                        '[company]',
+                        '[mycompany]',
                         '[address1]',
                         '[address2]',
                         '[state]',
                         '[city]',
                         '[zipcode]',
-                        '[myname]'
+                        '[myname]',
+                        '[myphone]',
+                        '[mywebsite]',
                     );
                     $replaceFormat = array(
                         $q->fname,
@@ -90,7 +94,9 @@
                         $q->state,
                         $q->city,
                         $q->zipcode,
-                        $name
+                        $name,
+                        $phone,
+                        $website
                     );
                     $content[] = str_replace($searchFormat, $replaceFormat, $q->content);
                 }

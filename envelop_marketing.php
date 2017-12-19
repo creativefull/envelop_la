@@ -47,17 +47,16 @@ if (!function_exists('envelope_marketing_la')) {
         $Table = new TableEVList($headers, $theData);
 
         // IF CONTENT EDITED
-        if ($_POST['editContent']) {
+        if (@$_POST['editContent']) {
             $updatedContent = $Content->save($_POST['step'], $_POST['editorContent' . $_POST['step']]);
             print_r($updatedContent);
         }
 
         // IF STUDENT MOVE
-        if ($_POST['submitMove']) {
-            extract($_POST);
-            $MoveStudent = $Move->bystep($moveUser, $submitMove);
+        if (@$_POST['submitMove']) {
+            $MoveStudent = $Move->bystep($_POST['moveUser'], $_POST['submitMove']);
             ?>
-            <p class="alert alert-success">Success move user to step <?= $submitMove; ?>, please wait to reload this page</p>
+            <p class="alert alert-success">Success move user to step <?php echo $_POST['submitMove']; ?>, please wait to reload this page</p>
             <script>
                 setTimeout(function() {
                     window.location.replace(window.location.href)
