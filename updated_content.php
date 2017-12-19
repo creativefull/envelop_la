@@ -34,18 +34,22 @@
             if (count($query) > 0) {
                 return $query[0]->content;
             } else {
-                $html = "<p>What about where it says:</p><br/>
-<p>
-Hello, my name is [name] with [company]
-</p>
-<br/>
-<p>
-Can we have an area where the student puts:
-</p>
+                $html = "
+                Dear Mr. [fname] [lname], 
+                Do you own property that you would like to sell? Are you looking to sell quickly without having to pay a realtor a huge commission? If so please call me, as I am interested in purchasing your property for cash and with a quick closing if necessary. 
 
-<br/>
-<p>Name: Kevin George</p><br/>
-<p>Company: XYZ Solutions</p>";
+                Going through the process of selling a property can be extremely stressful especially when you have to spend large amounts of time on marketing, dealing with realtors and contract issues, meeting with buyers that aren’t really serious about the property and just hoping that some offer might come through. When you consider the average number of days a property will sit on the market before it sells in this county is 150 days it may take even longer to sell your property depending on various factors. But I can provide you an immediate solution to these headaches. 
+
+                My name is [myname] and I buy properties of all kinds throughout the area and I would be interested in speaking with you about the possible sale of your property. A brief phone conversation with me could save you a lot of time and energy while resulting in a fair offer for your house. 
+                We have been working with sellers like you in the area for years and make the entire process very painless. 
+
+                CALL US TODAY at 555-111-4444, and I will be happy to speak with you about the sale of your property. Of course everything is completely confidential and absolutely free. If you prefer, you can also fill out a form on our website www.sellhouseorhome.com. I look forward to working with you and I wish you and your family the very best during these difficult times. 
+                Sincerely, 
+                
+                
+                
+                ([myname])
+                        ";
                 return $html;
             }
         }
@@ -61,7 +65,7 @@ Can we have an area where the student puts:
             $strx = "SELECT M.*, C.content FROM tbl_env_market as M INNER JOIN tbl_content_env AS C ON (C.userid = M.userid && C.step = M.seq) WHERE M.userid='$userinfo->id' AND M.seq=$step";
             $query = $wpdb->get_results($strx);
             $content = array();
-            $companyName = get_user_meta($userid, 'company', true);
+            $company = get_user_meta($current_user->ID, 'company', true);
 
             if (count($query) > 0) {
                 foreach($query as $q) {
@@ -79,7 +83,7 @@ Can we have an area where the student puts:
                     $replaceFormat = array(
                         $q->fname,
                         $q->lname,
-                        $companyName,
+                        $company,
                         $q->address1,
                         $q->address2,
                         $q->state,

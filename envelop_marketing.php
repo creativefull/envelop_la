@@ -42,7 +42,7 @@ if (!function_exists('envelope_marketing_la')) {
         include_once 'move.php';
         $Move = new MoveUser();
 
-        $headers = array('First Name', 'Last Name', 'Company', 'Address 1', 'Address 2', 'City', 'State', 'Zipcode');
+        $headers = array('First Name', 'Last Name', 'Address 1', 'Address 2', 'City', 'State', 'Zipcode');
         $theData = $wpdb->get_results("SELECT * FROM tbl_env_market WHERE userid='" . $userid . "' AND seq='" . $atts['step'] . "' ORDER BY created_at DESC");
         $Table = new TableEVList($headers, $theData);
 
@@ -112,9 +112,8 @@ if (!function_exists('envelope_marketing_la')) {
             // }
             $seq = $atts['step'];
 
-            $companyName = get_user_meta($userid, 'company', true);
             foreach($dataCSV as $d) {
-                $object = array("('" . $userid . "', '".$seq."','".$d['fname']."','".$d['lname']."','" . $companyName . "', '" .$d['address1']."','".$d['address2']."','".$d['city']."','".$d['state']."','".$d['zipcode']."')");
+                $object = array("('" . $userid . "', '".$seq."','".$d['fname']."','".$d['lname']."', '".$d['address1']."','".$d['address2']."','".$d['city']."','".$d['state']."','".$d['zipcode']."')");
                 $dataQuery[] = join(",", $object);
             }
 

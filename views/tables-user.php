@@ -38,7 +38,6 @@ class TableEVList {
             </thead>
             <tbody>
                 <?php
-                    $companyName = get_user_meta($userid, 'company', true);
                     if (count($this->data) >= 1) {
                         foreach($this->data as $theData) {
                             ?>
@@ -54,7 +53,6 @@ class TableEVList {
                                 ?>
                                 <td><?= $theData->fname; ?></td>
                                 <td><?= $theData->lname; ?></td>
-                                <td><?= $companyName; ?></td>
                                 <td><?= $theData->address1; ?></td>
                                 <td><?= $theData->address2; ?></td>
                                 <td><?= $theData->city; ?></td>
@@ -71,7 +69,7 @@ class TableEVList {
                     ?>
                         <tfoot>
                             <tr>
-                                <td colspan="<?= $options['move'] ? 6 : 5; ?>"></td>
+                                <td colspan="<?= $options['move'] ? 5 : 4; ?>"></td>
                                 <td>
                                     <a class="btn btn-default" href="<?php echo get_permalink($options['print']); ?>">Print All Letters</a>
                                 </td>
