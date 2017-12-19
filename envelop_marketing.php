@@ -89,6 +89,7 @@ if (!function_exists('envelope_marketing_la')) {
         // UPDATE COMPANY NAME
         if (@$_POST['submitCompany']) {
             update_user_meta($userid, 'company', $_POST['companyName']);
+            update_user_meta($userid, 'phone', $_POST['phoneNumber']);
             ?>
             <script>
                 setTimeout(function() {
