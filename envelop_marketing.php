@@ -36,6 +36,7 @@ if (!function_exists('envelope_marketing_la')) {
     function env_shortcode_func($atts) {
         global $wpdb;
         $userid = wp_get_current_user()->id;
+
         include_once 'views/tables-user.php';
         include_once 'updated_content.php';
         $Content = new UpdateContent();

@@ -63,7 +63,7 @@ Can we have an area where the student puts:
             $query = $wpdb->get_results($strx);
             $content = array();
             $company = get_user_meta($userinfo->ID, 'company', true);
-            $website = get_user_meta($userinfo->ID, 'website', true);
+            $website = $current_user->user_url;
             $phone = get_user_meta($userinfo->ID, 'phone', true);
 
             if (count($query) > 0) {
