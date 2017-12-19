@@ -79,14 +79,16 @@ if (!function_exists('envelope_marketing_la')) {
         // IF STUDENT MOVE
         if (@$_POST['submitMove']) {
             $MoveStudent = $Move->bystep($_POST['moveUser'], $_POST['submitMove']);
-            ?>
-            <p class="alert alert-success">Success move user to step <?php echo $_POST['submitMove']; ?>, please wait to reload this page</p>
-            <script>
-                setTimeout(function() {
-                    window.location.replace(window.location.href)
-                }, 500);
-            </script>
-            <?php
+            if ($MoveStudent) {
+                ?>
+                <p class="alert alert-success">Success move user to step <?php echo $_POST['submitMove']; ?>, please wait to reload this page</p>
+                <script>
+                    setTimeout(function() {
+                        window.location.replace(window.location.href)
+                    }, 500);
+                </script>
+                <?php
+            }
         }
         $option = array(
             'withEditor' => true,

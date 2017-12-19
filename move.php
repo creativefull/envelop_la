@@ -9,8 +9,8 @@
             $where = "(" . join(',', $arrayIn) . ")";
             $query = "UPDATE tbl_env_market SET seq='" . $step . "' WHERE id_env_market IN $where";
             // echo $query;
-            $query1 = $wpdb->query($query);
-            return array('success' => true);
+            $wpdb->query($query);
+            return array('success' => 'ok');
         }
 
         public function all($prevStep, $nextStep) {
