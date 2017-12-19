@@ -96,7 +96,7 @@
                         $q->zipcode,
                         $name,
                         $phone,
-                        $website
+                        $websiteName
                     );
                     $content[] = str_replace($searchFormat, $replaceFormat, $q->content);
                 }
