@@ -46,6 +46,7 @@ Can we have an area where the student puts:
 <br/>
 <p>Name: Kevin George</p><br/>
 <p>Company: XYZ Solutions</p>";
+                $wpdb->query("INSERT INTO tbl_content_env (content, userid, step) VALUES('" . $html . "','" . $userid . "','" . $step . "')") or die ("something wrong get content");
                 return $html;
             }
         }
@@ -90,6 +91,8 @@ Can we have an area where the student puts:
                     $content[] = str_replace($searchFormat, $replaceFormat, $q->content);
                 }
                 return $content;
+            } else {
+                return "No template to print";
             }
         }
     }
