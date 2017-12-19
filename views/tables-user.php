@@ -10,6 +10,8 @@ class TableEVList {
     }
 
     public function view($options) {
+        global $current_user;
+        get_currentuserinfo();
         $userid = wp_get_current_user()->id;
         if ($options['move']) {
             ?>
@@ -141,23 +143,23 @@ class TableEVList {
                         </tr>
                         <tr>
                             <td>[myname]</td>
-                            <td>Your Name</td>
+                            <td>Your Name (<?= $current_user->user_firstname . " " . $current_user->user_lastname; ?>)</td>
                         </tr>
                         <tr>
                             <td>[myphone]</td>
-                            <td>Your Phone</td>
+                            <td>Your Phone (<?= get_user_meta($userid, 'phone', true); ?>)</td>
                         </tr>
                         <tr>
                             <td>[mywebsite]</td>
-                            <td>Your Website</td>
+                            <td>Your Website (<?= $current_user->user_url; ?>)</td>
                         </tr>
                         <tr>
                             <td>[mycompany]</td>
-                            <td>Your Company</td>
+                            <td>Your Company (<?= get_user_meta($userid, 'company', true); ?>)</td>
                         </tr>
                         <tr>
                             <td>[myemail]</td>
-                            <td>Your Email</td>
+                            <td>Your Email (<?= $current_user->email; ?>)</td>
                         </tr>
                     </tbody>
                     </table>

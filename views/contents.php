@@ -7,7 +7,7 @@
                 <thead>
                     <tr>
                         <th>Step</th>
-                        </th>Content</th>
+                        <th>Content</th>
                         <th>#</th>
                     </tr>
                 </thead>
