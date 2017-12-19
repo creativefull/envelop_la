@@ -91,7 +91,7 @@ Can we have an area where the student puts:
                         $q->city,
                         $q->zipcode,
                         $name,
-                        $phone
+                        $phone,
                         $website
                     );
                     $content[] = str_replace($searchFormat, $replaceFormat, $q->content);
