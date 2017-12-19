@@ -63,19 +63,23 @@ Can we have an area where the student puts:
             $query = $wpdb->get_results($strx);
             $content = array();
             $companyName = get_user_meta($userid, 'company', true);
+            $websiteName = get_user_meta($userid, 'website', true);
+            $phone = get_user_meta($userid, 'phone', true);
 
             if (count($query) > 0) {
                 foreach($query as $q) {
                     $searchFormat = array(
                         '[fname]',
                         '[lname]',
-                        '[company]',
+                        '[mycompany]',
                         '[address1]',
                         '[address2]',
                         '[state]',
                         '[city]',
                         '[zipcode]',
-                        '[myname]'
+                        '[myname]',
+                        '[myphone]',
+                        '[mywebsite]',
                     );
                     $replaceFormat = array(
                         $q->fname,
@@ -86,7 +90,9 @@ Can we have an area where the student puts:
                         $q->state,
                         $q->city,
                         $q->zipcode,
-                        $name
+                        $name,
+                        $phone
+                        $website
                     );
                     $content[] = str_replace($searchFormat, $replaceFormat, $q->content);
                 }
