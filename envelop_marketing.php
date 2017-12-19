@@ -48,7 +48,7 @@ if (!function_exists('envelope_marketing_la')) {
 
         // IF CONTENT EDITED
         if ($_POST['editContent']) {
-            $updatedContent = $Content->save($_POST['step'], $_POST['editorContent' . $atts['step']]);
+            $updatedContent = $Content->save($_POST['step'], $_POST['editorContent' . $_POST['step']]);
             print_r($updatedContent);
         }
 
