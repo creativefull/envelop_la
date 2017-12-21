@@ -26,7 +26,7 @@ if (!function_exists('envelope_marketing_la')) {
         $ContentView = new ENVContent();
         // IF MODIFY CONTENT
         if (@$_POST['submitContent']) {
-            $updatedContent = $Content->save($_POST['step'], $_POST['editorContent' . $_POST['step']]);
+            $updatedContent = $Content->save($_POST['step'], $_POST['editorContent']);
             print_r($updatedContent);
         }
         if (@$_GET['id']) {
@@ -35,6 +35,8 @@ if (!function_exists('envelope_marketing_la')) {
                 "step" => $_GET['id']
             );
             $ContentView->edit($data);
+        } else if (@$_GET['type'] == 'add') {
+            $ContentView->edit();
         } else {
             $data = $Content->all();
             $ContentView->view($data);

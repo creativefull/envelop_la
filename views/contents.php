@@ -3,6 +3,9 @@
         public function view($data) {
             global $wp;
             ?>
+            <a href="<?=home_url($wp->request);?>?type=add" title="Add Default Content" class="btn btn-primary">
+                Add Default Content
+            </a>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -42,7 +45,7 @@
                     <label>Step</label>
                     <?php
                         $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
-                        wp_editor($data['content'], 'editorContent' . $data['step'], $settings);
+                        wp_editor($data['content'], 'editorContent', $settings);
                     ?>
                 </div>
                 <a href="<?= home_url($wp->request); ?>" title="Back" class="btn btn-default">Back</a>
