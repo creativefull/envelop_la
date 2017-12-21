@@ -1,12 +1,16 @@
 <?php
     class UpdateContent {
+        private $type;
+        public function __construct($type = 'content') {
+            $this->type = $type;
+        }
         public function save($step, $content) {
             global $wpdb;
             $userid = wp_get_current_user()->id;
-            $query1 = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='" . $userid . "'");
+            $query1 = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='" . $userid . "' AND type='" . $this->type . "'");
             if (count($query1) > 0 ) {
                 // UPDATE THE CONTENT
-                $wpdb->query("UPDATE tbl_content_env SET content='" . $content . "' WHERE step='$step' AND userid='" . $userid . "'");
+                $wpdb->query("UPDATE tbl_content_env SET content='" . $content . "' WHERE step='$step' AND userid='" . $userid . "' AND type='" . $this->type . "'");
                 ?>
                 <script>
                     setTimeout(function() {
@@ -15,7 +19,7 @@
                 </script>
                 <?php
             } else {
-                $wpdb->query("INSERT INTO tbl_content_env (userid, step, content) VALUES ('" . $userid . "', '" . $step . "', '" . $content . "')") or die ("error create new template");
+                $wpdb->query("INSERT INTO tbl_content_env (userid, step, type, content) VALUES ('" . $userid . "', '" . $step . "', '" . $this->type . "', '" . $content . "')") or die ("error create new template");
                 ?>
                 <script>
                     setTimeout(function() {
@@ -30,7 +34,7 @@
             global $wpdb;
             $userInfo = wp_get_current_user();
             $userid = $userInfo->id;
-            $query = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE userid='" . $userid . "' ORDER BY step");
+            $query = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE userid='" . $userid . "' AND type='" . $this->type . "' ORDER BY step");
             return $query;
         }
 
@@ -38,8 +42,8 @@
             global $wpdb;
             $userInfo = wp_get_current_user();
             $userid = $userInfo->id;
-            $query = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='" . $userid . "'");
-            $blankquery = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='0' ");
+            $query = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='" . $userid . "' AND type='" . $this->type . "'");
+            $blankquery = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='0' AND type='" . $this->type . "'");
             if (count($query) > 0) {
                 return $query[0]->content;
             } else {

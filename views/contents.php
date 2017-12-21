@@ -1,5 +1,9 @@
 <?php
     class ENVContent {
+        private $type;
+        public function __construct($type='content') {
+            $this->type = $type;
+        }
         public function view($data) {
             global $wp;
             ?>
@@ -42,7 +46,7 @@
                     <input type="number" placeholder="Step" value="<?= $data['step']; ?>" name="step"/>
                 </div>
                 <div class="form-group">
-                    <label>Step</label>
+                    <label>Content</label>
                     <?php
                         $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
                         wp_editor($data['content'], 'editorContent', $settings);
@@ -52,6 +56,29 @@
                 <input type="submit" name="submitContent" class="btn btn-primary" value="Modify Content"/>
             </form>
             <?php
+        }
+
+        public function headerFooter($data) {
+            global $wp;
+            ?>
+            <form action="" method="POST">
+                <div class="form-group">
+                    <label>Header</label>
+                    <?php
+                        $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
+                        wp_editor($data['headerContent'], 'headerContent', $settings);
+                    ?>
+                </div>
+                <div class="form-group">
+                    <label>Footer</label>
+                    <?php
+                        $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
+                        wp_editor($data['footerContent'], 'footerContent', $settings);
+                    ?>
+                </div>
+                <input type="submit" name="submitContent" class="btn btn-primary" value="Modify Content"/>
+            </form>
+            <?php            
         }
     }
 ?>

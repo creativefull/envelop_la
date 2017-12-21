@@ -28,6 +28,7 @@ function create_table_em() {
         `tbl_content_env_id` INT NOT NULL AUTO_INCREMENT,
         `userid` INT NULL,
         `step` INT NULL,
+        `type` VARCHAR(20) NULL,
         `content` LONGTEXT NULL,
         PRIMARY KEY (`tbl_content_env_id`));";
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

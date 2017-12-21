@@ -11,12 +11,16 @@
 if (!function_exists('envelope_marketing_la')) {
     function envelope_marketing_la() {
         require_once('create_table.php');
+        require_once('header_footer.php');
         initTable();
+        $HeaderFooter = new HeaderFooter();
+        $HeaderFooter->initHeader();
 
         add_shortcode('env_marketing_upload', 'env_shortcode_upload_func');
         add_shortcode('env_marketing', 'env_shortcode_func');
         add_shortcode('env_marketing_content', 'env_shortcode_content_func');
         add_shortcode('env_marketing_print', 'env_print_func');
+        add_shortcode('env_marketing_header_footer', 'env_shortcode_hf_pdf');
     }
 
     function env_shortcode_content_func($atts) {
@@ -41,6 +45,25 @@ if (!function_exists('envelope_marketing_la')) {
             $data = $Content->all();
             $ContentView->view($data);
         }
+    }
+
+    function env_shortcode_hf_pdf($atts) {
+        include_once 'updated_content.php';
+        include_once 'views/contents.php';
+        $ContentHeader = new UpdateContent('header');
+        $ContentFooter = new UpdateContent('footer');
+        $ContentView = new ENVContent();
+        // IF MODIFY CONTENT
+        if (@$_POST['submitContent']) {
+            $headerContent = $ContentHeader->save(0, $_POST['headerContent']);
+            $footerContent = $ContentFooter->save(0, $_POST['footerContent']);
+            print_r("<p class=\"alert alert-success\">Success setting header and footer</p>");
+        }
+        $data = array(
+            'headerContent' => $ContentHeader->get(0),
+            'footerContent' => $ContentFooter->get(0)
+        );
+        $ContentView->headerFooter($data);
     }
 
     function env_print_func($atts) {
