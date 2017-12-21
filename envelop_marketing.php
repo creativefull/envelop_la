@@ -107,6 +107,8 @@ if (!function_exists('envelope_marketing_la')) {
         $CSV = new ReadCSV();
         $userid = wp_get_current_user()->id;
         $seq = 1;
+        include_once 'users.php';
+        $UserModel = new UserModel();
 
         // UPDATE COMPANY NAME
         if (@$_POST['submitCompany']) {
@@ -136,17 +138,33 @@ if (!function_exists('envelope_marketing_la')) {
             // }
             $seq = $_POST['step'];
 
+            $skip = 0;
             foreach($dataCSV as $d) {
-                $object = array("('" . $userid . "', '".$seq."','".$d['fname']."','".$d['lname']."', '".$d['address1']."','".$d['address2']."','".$d['city']."','".$d['state']."','".$d['zipcode']."')");
-                $dataQuery[] = join(",", $object);
+                // CHECK EXISTING
+                $params = array(
+                    'userid' => $userid,
+                    'step' => $seq,
+                    'fname' => $d['fname'],
+                    'lname' => $d['lname'],
+                    'address1' => $d['address1']
+                );
+                if ($UserModel->isExists($params)) {
+                    $skip++;
+                } else {
+                    $object = array("('" . $userid . "', '".$seq."','".$d['fname']."','".$d['lname']."', '".$d['address1']."','".$d['address2']."','".$d['city']."','".$d['state']."','".$d['zipcode']."')");
+                    $dataQuery[] = join(",", $object);
+                }
             }
 
-            $dataHasil = (join(",", $dataQuery));
-            $querySQL = "INSERT INTO tbl_env_market (userid, seq, fname, lname, address1, address2, city, state, zipcode) VALUES $dataHasil";
-            $wpdb->query($querySQL) or die ('Something wrong');
-            // echo "<pre>";
-            // echo "</pre>";
-            echo "<p class=\"alert alert-success\">Success Upload User in Squence " . $atts['step'] . "</p>";
+            if (count($dataQuery) > 0) {
+                $dataHasil = (join(",", $dataQuery));
+                $querySQL = "INSERT INTO tbl_env_market (userid, seq, fname, lname, address1, address2, city, state, zipcode) VALUES $dataHasil";
+                $wpdb->query($querySQL) or die ('Something wrong');
+                echo "<p class=\"alert alert-success\">Success Upload User in Squence " . $atts['step'] . "
+                <br/>User already existing in database => " . $skip . "</p>";
+            } else {
+                echo "<p class=\"alert alert-warning\">Nothing new data to insert</p>";
+            }
         }
         include_once 'views/upload-view.php';
     }
