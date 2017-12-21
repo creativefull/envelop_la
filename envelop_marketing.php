@@ -55,6 +55,7 @@ if (!function_exists('envelope_marketing_la')) {
         if (@$_GET['move']) {
             $Move->all($atts['step'], $atts['step'] + 1);
         }
+        echo get_option( 'dkpdf_pdf_footer_text' );
         return $Letter->view($dataContent);
     }
 
