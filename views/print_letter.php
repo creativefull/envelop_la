@@ -49,11 +49,6 @@
                     }
                 ?>
             </div>
-            <script>
-                jQuery(function() {
-                    window.print();
-                })
-            </script>
             <?php
         }
     }
