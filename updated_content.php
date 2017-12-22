@@ -6,8 +6,8 @@
         }
         public function saveLogo($logo) {
             $userid = wp_get_current_user()->id;
-            $logoMeta = get_user_meta($userid, 'companyLogo', true);
-            if ($logoMeta) {
+            $logoMeta = get_user_meta($userid, 'companyLogo');
+            if (count($logoMeta) > 0) {
                 update_user_meta($userid, 'companyLogo', $logo);
             } else {
                 add_user_meta($userid, 'companyLogo', $logo);

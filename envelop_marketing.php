@@ -55,10 +55,10 @@ if (!function_exists('envelope_marketing_la')) {
         $ContentView = new ENVContent();
         // IF MODIFY CONTENT
         if (@$_POST['submitContent']) {
+            $ContentFooter->saveLogo($_POST['companyLogo']);
             $headerContent = $ContentHeader->save(0, $_POST['headerContent']);
             $footerContent = $ContentFooter->save(0, $_POST['footerContent']);
-            $ContentFooter->saveLogo($_POST['companyLogo']);
-            print_r("<p class=\"alert alert-success\">Success setting header and footer</p>");
+            print_r("<p class=\"alert alert-success\">Success setting header</p>");
         }
         $data = array(
             'headerContent' => $ContentHeader->get(0) != "" ? $ContentHeader->get(0) : "<p style=\"font-size: 10px\">Insert Your Company Name Here<br/>Insert your phone here<br/>Insert Your Address Here</p>",
