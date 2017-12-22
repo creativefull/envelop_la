@@ -61,7 +61,7 @@ if (!function_exists('envelope_marketing_la')) {
             print_r("<p class=\"alert alert-success\">Success setting header and footer</p>");
         }
         $data = array(
-            'headerContent' => $ContentHeader->get(0),
+            'headerContent' => $ContentHeader->get(0) != "" ? $ContentHeader->get(0) : "<p>Insert Your Company Name Here</p><p>Insert your phone here</p><p>Insert Your Address Here</p>",
             'footerContent' => $ContentFooter->get(0),
             'companyLogo' => $ContentHeader->getLogo()
         );
@@ -169,7 +169,6 @@ if (!function_exists('envelope_marketing_la')) {
                 // CHECK EXISTING
                 $params = array(
                     'userid' => $userid,
-                    'step' => $seq,
                     'fname' => $d['fname'],
                     'lname' => $d['lname'],
                     'address1' => $d['address1']
