@@ -185,8 +185,7 @@ if (!function_exists('envelope_marketing_la')) {
                 $dataHasil = (join(",", $dataQuery));
                 $querySQL = "INSERT INTO tbl_env_market (userid, seq, fname, lname, address1, address2, city, state, zipcode) VALUES $dataHasil";
                 $wpdb->query($querySQL) or die ('Something wrong');
-                echo "<p class=\"alert alert-success\">Success Upload User in Squence " . $atts['step'] . "
-                <br/>User already existing in database => " . $skip . "</p>";
+                echo "<p class=\"alert alert-success\">Data Successfully Uploaded</p>";
             } else {
                 echo "<p class=\"alert alert-warning\">Nothing new data to insert</p>";
             }
