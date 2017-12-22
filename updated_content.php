@@ -4,6 +4,21 @@
         public function __construct($type = 'content') {
             $this->type = $type;
         }
+        public function saveLogo($logo) {
+            $userid = wp_get_current_user()->id;
+            $logoMeta = get_user_meta($userid, 'companyLogo', true);
+            if ($logoMeta) {
+                update_user_meta($userid, 'companyLogo', $logo);
+            } else {
+                add_user_meta($userid, 'companyLogo', $logo);
+            }
+            return 'ok';
+        }
+        public function getLogo() {
+            $userid = wp_get_current_user()->id;
+            $logoMeta = get_user_meta($userid, 'companyLogo', true);
+            return $logoMeta;
+        }
         public function save($step, $content) {
             global $wpdb;
             $userid = wp_get_current_user()->id;
