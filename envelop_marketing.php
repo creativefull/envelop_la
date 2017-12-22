@@ -57,11 +57,13 @@ if (!function_exists('envelope_marketing_la')) {
         if (@$_POST['submitContent']) {
             $headerContent = $ContentHeader->save(0, $_POST['headerContent']);
             $footerContent = $ContentFooter->save(0, $_POST['footerContent']);
+            $ContentFooter->saveLogo($_POST['companyLogo']);
             print_r("<p class=\"alert alert-success\">Success setting header and footer</p>");
         }
         $data = array(
             'headerContent' => $ContentHeader->get(0),
-            'footerContent' => $ContentFooter->get(0)
+            'footerContent' => $ContentFooter->get(0),
+            'companyLogo' => $ContentHeader->getLogo()
         );
         $ContentView->headerFooter($data);
     }

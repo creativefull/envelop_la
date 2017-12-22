@@ -63,6 +63,10 @@
             ?>
             <form action="" method="POST">
                 <div class="form-group">
+                    <label>Company Logo Url</label>
+                    <input type="text" name="companyLogo" value="<?= $data['companyLogo']; ?>"/>
+                </div>
+                <div class="form-group">
                     <label>Header</label>
                     <?php
                         $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
