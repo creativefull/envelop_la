@@ -73,13 +73,13 @@
                         wp_editor($data['headerContent'], 'headerContent', $settings);
                     ?>
                 </div>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label>Footer</label>
                     <?php
                         $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
                         wp_editor($data['footerContent'], 'footerContent', $settings);
                     ?>
-                </div>
+                </div>-->
                 <input type="submit" name="submitContent" class="btn btn-primary" value="Modify Content"/>
             </form>
             <?php            
