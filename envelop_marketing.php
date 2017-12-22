@@ -61,7 +61,7 @@ if (!function_exists('envelope_marketing_la')) {
             print_r("<p class=\"alert alert-success\">Success setting header and footer</p>");
         }
         $data = array(
-            'headerContent' => $ContentHeader->get(0) != "" ? $ContentHeader->get(0) : "<p>Insert Your Company Name Here</p><p>Insert your phone here</p><p>Insert Your Address Here</p>",
+            'headerContent' => $ContentHeader->get(0) != "" ? $ContentHeader->get(0) : "<p style=\"font-size: 10px\">Insert Your Company Name Here<br/>Insert your phone here<br/>Insert Your Address Here</p>",
             'footerContent' => $ContentFooter->get(0),
             'companyLogo' => $ContentHeader->getLogo()
         );
