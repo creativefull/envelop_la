@@ -38,18 +38,21 @@
 <?php
     } else {
         ?>
-        <p class="alert alert-warning">Before upload the data, you need to edit your company name, your phone and your website(if any) on your profile</p>
+        <p class="alert alert-warning">Before you continue, please enter your phone number and website URL below.</p>
         <form action="" method="POST">
             <div class="form-group">
                 <label>Company Name</label>
-                <input type="text" name="companyName" class="form-control" value="<?= $companyName; ?>" />
+                <?php
+                    $companyName = "Legendary Investors, LLC";
+                ?>
+                <input type="hidden" name="companyName" class="form-control" value="<?= $companyName; ?>" />
             </div>
             <div class="form-group">
-                <label>Phone</label>
+                <label>Enter Phone Number Here</label>
                 <input type="phone" name="phoneNumber" class="form-control" value="<?= $phoneName; ?>"/>
             </div>
             <div class="form-group">
-                <label>Website</label>
+                <label>Enter Website Url Here</label>
                 <input type="website" name="websiteURL" class="form-control" value="<?= $userdata->user_url ; ?>" />
             </div>
             <input type="submit" name="submitCompany" value="UPDATE"/>

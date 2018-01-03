@@ -165,7 +165,13 @@ if (!function_exists('envelope_marketing_la')) {
         if (count($theData) >= 1) {
             return $Table->view($option);
         } else {
-            echo "<p class=\"alert alert-warning\">No Contact Found</p>";
+            $nextStep = $atts['step'] + 1;
+            $nextData = $wpdb->get_results("SELECT userid FROM tbl_env_market WHERE userid ='" . $userid . "' AND strategy='" . $strategy . "' AND seq ='" . $nextStep . "' ORDER BY created_at DESC LIMIT 0,1");
+            if (count($nextData) >= 1) {
+                echo "<p class=\"alert alert-warning\">Previous Sent Mailers - View";
+            } else {
+                echo "<p class=\"alert alert-warning\">No Contact Found</p>";
+            }
         }
     }
 
