@@ -17,33 +17,33 @@
                         margin: 0em;
                     }
                     body p {
-                        padding-bottom : 12px;
+                        // padding-bottom : 12px;
                     }
                     .hide-print {
                         visibility: hidden !important;
                         display: none;
                      }
-                    .page-break  { display:block; page-break-before:always; visibility: visible; margin-bottom: 4em}
-                    #section-to-print, #section-to-print * {
-                        visibility: visible;
-                    }
+                    .pagebreak  { display:block; page-break-after:always; visibility: visible; }
+
                     @page {
                         size: auto;   /* auto is the initial value */ 
 
                         /* this affects the margin in the printer settings */ 
                         margin: 35mm 25mm 25mm 25mm;                        
                     }
+                    .pagebreak:last-child {
+                        page-break-after: auto;
+                   }
                 }
             </style>
             <div id="section-to-print">
                 <?php
                     foreach($content as $c) {
                         ?>
-                        <div class="row">
+                        <div class="row pagebreak">
                             <div class="col-md-12">
                                 <?= wpautop($c); ?>
                             </div>
-                            <div class="page-break"></div>
                         </div>
                         <?php
                     }

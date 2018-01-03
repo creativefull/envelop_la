@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="alert alert-default">
-                    <li>Format should be First Name, Last Name, Address 1, Address 2, City, State, Zipcode</li>
+                    <li>Format should be First Name, Last Name, Address 1, Address 2, City, State, Zipcode (<a target="_blank" href="<?= content_url(); ?>/uploads/2017/12/sample_format_la_contact.csv">Download Sample</a>)</li>
                 </ul>
             </div>
         </div>

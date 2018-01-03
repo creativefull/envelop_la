@@ -9,6 +9,37 @@
 	* License: Full
 */
 if (!function_exists('envelope_marketing_la')) {
+
+    /* Wordpress CronJob LA */
+    if ( ! wp_next_scheduled( 'my_task_hook' ) ) {
+        wp_schedule_event( time(), 'hourly', 'my_task_hook' );
+    }
+    add_action( 'my_task_hook', 'la_envelope_task' ); 
+    
+    function la_envelope_task() {
+        global $wpdb;
+        $subject = "Reminder: It's time to send out the next mailer!";
+        $nowdatetime = current_time( 'mysql' );
+
+        $timerdate = $wpdb->get_results("SELECT DISTINCT userid, seq, min(created_at) as created_at FROM tbl_env_market GROUP BY userid , seq ");
+        foreach ($timerdate as $datatask)
+        {
+            $datetimebefore = date('Y-m-d H:i:s', strtotime( $datatask->created_at . ' + 4 day' ));
+            $datestop = date('Y-m-d H:i:s', strtotime( $datetimebefore . ' + 1 hour' ));
+            
+            // Create Date Range between Date +4D and +4D1H, to avoid repeatable mail send because cron is hourly
+            if ( strtotime($nowdatetime) >= strtotime($datetimebefore) &&  strtotime($nowdatetime) <= strtotime($datestop) ) {
+                $userdata = get_userdata( $datatask->userid );
+                $body = "<html><body>Hello,<br><br>
+                This is a reminder to login to LegendaryAgent.com and send your mailer Step $datatask->seq ! You DO NOT want to delay on this step because consistent communication is what is going to get us our next deal. Login and send out the next mailer as soon as possible. <br><br>
+                Let us know if you have any questions,  <br><br><br>
+                Legendary Agent</body></html>";
+                wp_mail( $userdata->user_email, $subject, $body );
+            }
+        }
+        
+    }
+
     function envelope_marketing_la() {
         require_once('create_table.php');
         require_once('header_footer.php');
@@ -52,18 +83,24 @@ if (!function_exists('envelope_marketing_la')) {
         include_once 'views/contents.php';
         $ContentHeader = new UpdateContent('header');
         $ContentFooter = new UpdateContent('footer');
+        $ContentEnvelope = new UpdateContent('envelope');
+        $ContentLogo = new UpdateContent('clogo');
         $ContentView = new ENVContent();
         // IF MODIFY CONTENT
-        if (@$_POST['submitContent']) {
-            $ContentFooter->saveLogo($_POST['companyLogo']);
+        if (@$_POST['submitHFEL']) {
+            $ContentLogo->saveLogo($_POST['companyLogo']);
             $headerContent = $ContentHeader->save(0, $_POST['headerContent']);
             $footerContent = $ContentFooter->save(0, $_POST['footerContent']);
-            print_r("<p class=\"alert alert-success\">Success setting header</p>");
+            $envelopeContent = $ContentEnvelope->save(0, $_POST['envelopeContent']);
+            print_r("<p class=\"alert alert-success\">Update successfull</p>");
         }
         $data = array(
             'headerContent' => $ContentHeader->get(0) != "" ? $ContentHeader->get(0) : "<p style=\"font-size: 10px\">Insert Your Company Name Here<br/>Insert your phone here<br/>Insert Your Address Here</p>",
             'footerContent' => $ContentFooter->get(0),
-            'companyLogo' => $ContentHeader->getLogo()
+            'envelopeContent' => $ContentEnvelope->get(0) != "" ? $ContentEnvelope->get(0) : "<p style=\"padding-left: 420px;\"><strong>Attn : [fname] [lname]</strong>
+            [address1] [address2]
+            [city] [state] [zipcode]</p>",
+            'companyLogo' => $ContentLogo->getLogo()
         );
         $ContentView->headerFooter($data);
     }
@@ -80,7 +117,7 @@ if (!function_exists('envelope_marketing_la')) {
         if (@$_GET['move']) {
             $Move->all($atts['step'], $atts['step'] + 1);
         }
-        echo get_option( 'dkpdf_pdf_footer_text' );
+        // echo get_option( 'dkpdf_pdf_footer_text' );
         return $Letter->view($dataContent);
     }
 
@@ -95,8 +132,10 @@ if (!function_exists('envelope_marketing_la')) {
         $Move = new MoveUser();
 
         $headers = array('First Name', 'Last Name', 'Address 1', 'Address 2', 'City', 'State', 'Zipcode');
-        $theData = $wpdb->get_results("SELECT * FROM tbl_env_market WHERE userid='" . $userid . "' AND seq='" . $atts['step'] . "' ORDER BY created_at DESC");
-        $Table = new TableEVList($headers, $theData);
+        $theData = $wpdb->get_results("SELECT * FROM tbl_env_market WHERE userid ='" . $userid . "' AND seq ='" . $atts['step'] . "' ORDER BY created_at DESC");
+        $timerdate = $wpdb->get_results("SELECT created_at  FROM tbl_env_market WHERE userid ='" . $userid . "' AND seq ='" . $atts['step'] . "' ORDER BY created_at ASC");
+        $checkContent = $wpdb->get_results("SELECT tbl_content_env_id FROM tbl_content_env WHERE userid = '" . $userid . "' AND step = '" . $atts['step'] . "' AND type = 'content' ");
+        $Table = new TableEVList($headers, $theData, $checkContent, $timerdate);
 
         // IF CONTENT EDITED
         if (@$_POST['editContent']) {

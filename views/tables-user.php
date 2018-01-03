@@ -3,10 +3,58 @@
 class TableEVList {
     private $data;
     private $header;
+    private $checkcontent;
+    private $timerdate;
 
-    public function __construct($header, $arrayData) {
+    public function __construct($header, $arrayData, $checkContent, $timerdate) {
         $this->data = $arrayData;
         $this->header = $header;
+        $this->checkcontent = $checkContent;
+        $this->timerdate = $timerdate;
+    }
+
+    private function CountDown($id,$datetime){
+        ?>
+        <p id="demo<?= $id; ?>" class="alert alert-danger"></p>
+        <script>
+            var datetime<?= $id; ?>= "<?= date('Y-m-d H:i:s', strtotime( $datetime . ' + 4 day' )) ?>"; 
+            // Set the date we're counting down to
+            var countDownDate<?= $id; ?> = new Date(datetime<?= $id; ?>).getTime();
+
+            // Update the count down every 1 second
+            var x<?= $id ?> = setInterval(function() {
+
+                // Get todays date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now an the count down date
+                var distance<?= $id; ?> = countDownDate<?= $id; ?> - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance<?= $id; ?> / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance<?= $id; ?> % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance<?= $id; ?> % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance<?= $id; ?> % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="demo"
+                document.getElementById("demo<?= $id; ?>").innerHTML = "Send email alert in " +days + " days, " + hours + " hours, "
+                + minutes + " minutes, " + seconds + " seconds ";
+                    console.log( days + " " + hours + " " + minutes + " " + seconds)
+                            
+
+                // If the count down is finished, write some text 
+                if (distance<?= $id; ?> < 0) {
+                    clearInterval(x<?= $id ?>);
+                    document.getElementById("demo<?= $id; ?>").innerHTML = "Send email alert in 00 days, 00 hours, 00 minutes, 00 seconds ";
+                    
+                }
+            }, 1000);
+
+           
+
+        </script>
+        <?php
+        return ;
     }
 
     public function view($options) {
@@ -19,6 +67,9 @@ class TableEVList {
             <?php
         }
         ?>
+
+        <?php $this->CountDown($options['step'], $this->timerdate[0]->created_at ); ?>
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -74,16 +125,35 @@ class TableEVList {
                                 <td colspan="<?= $options['move'] ? 4 : 3; ?>">
                                      <!-- Trigger the modal with a button -->
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $options['step']; ?>">Shortcode Helper</button>
+                                        <?php
+                                    
+                                        if (count($this->checkcontent) >= 1) { ?>
+                                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#myletter<?= $options['step']; ?>">Edit Letter</button>
+                                        <?php } else { ?>
+                                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#myletter<?= $options['step']; ?>">Create Letter</button>
+                                        <?php } ?>
+
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary" target="_blank" href="<?php echo get_permalink($options['print']); ?>?pdf=<?= $options['print']; ?>">Print Preview</a>
+                                    <?php
+                                    
+                                    if (count($this->checkcontent) >= 1) { ?>
+                                        <a class="btn btn-primary" target="_blank" href="<?php echo get_permalink($options['print']); ?>?pdf=<?= $options['print']; ?>">Letter Preview</a>
+                                        
+                                        <a class="btn btn-primary" target="_blank" href="<?php echo get_permalink($options['print']); ?>?pdf=<?= $options['print']; ?>&envelope=true">Print Envelope</a>
+                                    <?php } else {
+                                        echo "<p> Please CREATE LETTER before PRINT</p>";
+                                    }?> 
                                 </td>
                                 <?php
                                     if ($options['move']) {
                                         ?>
                                         <td>
+                                        <?php if (count($this->checkcontent) >= 1) { ?>
                                             <a class="btn btn-primary printmove" target="_blank" href="<?php echo get_permalink($options['print']); ?>?move=<?= $options['move']; ?>&pdf=<?= $options['print']; ?>">Print & Move</a>
+                                        <?php } ?>
                                         </td>
+
                                         <td colspan="2">
                                             <button type="submit" value="<?= $options['move']; ?>" name="submitMove" id="btnMove" class="btn btn-primary">Move selected list to step <?= $options['move']; ?></button>
                                         </td>
@@ -183,16 +253,19 @@ class TableEVList {
 
                         </div>
                     </div>
-            <form action="" method="POST">
-                <?php
-                    $settings = array( 'media_buttons' => false, 'editor_height' => '300' );
-                    wp_editor($options['editorValue'], 'editorContent' . $options['step'], $settings);
-                ?>
-                <br/>
-                <input type="hidden" name="editContent" value="yes"/>
-                <input type="hidden" name="step" value="<?= $options['step']; ?>"/>
-                <input type="submit" class="btn btn-primary" name="submitContent" value="MODIFY LETTER"/>
-            </form>
+
+                <div id="myletter<?= $options['step']; ?>" class="collapse">
+                    <form action="" method="POST">
+                        <?php
+                            $settings = array( 'media_buttons' => false, 'editor_height' => '300' );
+                            wp_editor($options['editorValue'], 'editorContent' . $options['step'], $settings);
+                        ?>
+                        <br/>
+                        <input type="hidden" name="editContent" value="yes"/>
+                        <input type="hidden" name="step" value="<?= $options['step']; ?>"/>
+                        <input type="submit" class="btn btn-primary" name="submitContent" value="MODIFY LETTER"/>
+                    </form>
+                </div>
             <?php
         }
     }

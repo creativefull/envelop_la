@@ -63,7 +63,7 @@
                 return $query[0]->content;
             } else {
                 $html = $blankquery[0]->content;
-                // $wpdb->query("INSERT INTO tbl_content_env (content, userid, step) VALUES('" . $html . "','" . $userid . "','" . $step . "')") or die ("something wrong get content");
+                    // $wpdb->query("INSERT INTO tbl_content_env (content, userid, step, type) VALUES('" . $html . "','" . $userid . "','" . $step . "','" . $this->type . "')") or die ("something wrong get content");
                 return $html;
             }
         }
@@ -75,8 +75,13 @@
 
             $userinfo = wp_get_current_user();
             $name = $current_user->user_firstname . " " . $current_user->user_lastname;
-
-            $strx = "SELECT M.*, C.content FROM tbl_env_market as M INNER JOIN tbl_content_env AS C ON (C.userid = M.userid && C.step = M.seq) WHERE M.userid='$userinfo->id' AND M.seq=$step";
+            if (empty ($_GET[envelope])) {
+                // This for Letter
+                $strx = "SELECT M.*, C.content FROM tbl_env_market as M INNER JOIN tbl_content_env AS C ON (C.userid = M.userid && C.step = M.seq) WHERE M.userid='$userinfo->id' AND M.seq=$step";
+            } else {
+                // This for Envelope
+                $strx = "SELECT M.*, C.content FROM tbl_env_market as M INNER JOIN tbl_content_env AS C ON (C.userid = M.userid) WHERE M.userid='$userinfo->id' AND M.seq=$step AND C.type='envelope'";
+            }
             $query = $wpdb->get_results($strx);
             $content = array();
             $company = get_user_meta($userinfo->ID, 'company', true);

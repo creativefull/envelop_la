@@ -67,20 +67,20 @@
                     <input type="text" name="companyLogo" value="<?= $data['companyLogo']; ?>"/>
                 </div>
                 <div class="form-group">
-                    <label>Header</label>
+                    <label style="position:absolute;">Header</label>
                     <?php
                         $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
                         wp_editor($data['headerContent'], 'headerContent', $settings);
                     ?>
                 </div>
-                <!--<div class="form-group">
-                    <label>Footer</label>
+                <div class="form-group">
+                    <label style="position:absolute;">Envelope</label>
                     <?php
                         $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
-                        wp_editor($data['footerContent'], 'footerContent', $settings);
+                        wp_editor($data['envelopeContent'], 'envelopeContent', $settings);
                     ?>
-                </div>-->
-                <input type="submit" name="submitContent" class="btn btn-primary" value="Modify Content"/>
+                </div>
+                <input type="submit" name="submitHFEL" class="btn btn-primary" value="Modify Content"/>
             </form>
             <?php            
         }
