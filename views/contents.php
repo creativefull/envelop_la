@@ -14,6 +14,7 @@
                 <thead>
                     <tr>
                         <th>Step</th>
+                        <th>Strategy</th>
                         <th>Content</th>
                         <th>#</th>
                     </tr>
@@ -24,9 +25,10 @@
                             ?>
                             <tr>
                                 <td><?= $d->step; ?></td>
+                                <td><?= $d->strategy; ?></td>
                                 <td><?= $d->content; ?></td>
                                 <td>
-                                    <a href="<?=home_url($wp->request);?>?id=<?= $d->step; ?>">Edit</a>
+                                    <a href="<?=home_url($wp->request);?>?id=<?= $d->step; ?>&strategy=<?= $d->strategy; ?>">Edit</a>
                                 </td>
                             </tr>
                             <?php
@@ -44,6 +46,10 @@
                 <div class="form-group">
                     <label>Step</label>
                     <input type="number" placeholder="Step" value="<?= $data['step']; ?>" name="step"/>
+                </div>
+                <div class="form-group">
+                    <label>Strategy</label>
+                    <input type="number" placeholder="Strategy" value="<?= $data['strategy']; ?>" name="strategy"/>
                 </div>
                 <div class="form-group">
                     <label>Content</label>

@@ -1,8 +1,12 @@
 <?php
     class UpdateContent {
         private $type;
+        private $stg = 0;
         public function __construct($type = 'content') {
             $this->type = $type;
+        }
+        public function setStrategy($stg) {
+            $this->stg = $stg;
         }
         public function saveLogo($logo) {
             $userid = wp_get_current_user()->id;
@@ -22,10 +26,10 @@
         public function save($step, $content) {
             global $wpdb;
             $userid = wp_get_current_user()->id;
-            $query1 = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='" . $userid . "' AND type='" . $this->type . "'");
+            $query1 = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='" . $userid . "' AND strategy='" . $this->stg . "' AND type='" . $this->type . "'");
             if (count($query1) > 0 ) {
                 // UPDATE THE CONTENT
-                $wpdb->query("UPDATE tbl_content_env SET content='" . $content . "' WHERE step='$step' AND userid='" . $userid . "' AND type='" . $this->type . "'");
+                $wpdb->query("UPDATE tbl_content_env SET content='" . $content . "' WHERE step='$step' AND userid='" . $userid . "' AND strategy='" . $this->stg . "' AND type='" . $this->type . "'");
                 ?>
                 <script>
                     setTimeout(function() {
@@ -34,7 +38,7 @@
                 </script>
                 <?php
             } else {
-                $wpdb->query("INSERT INTO tbl_content_env (userid, step, type, content) VALUES ('" . $userid . "', '" . $step . "', '" . $this->type . "', '" . $content . "')") or die ("error create new template");
+                $wpdb->query("INSERT INTO tbl_content_env (userid, step, strategy, type, content) VALUES ('" . $userid . "', '" . $step . "', '" . $this->stg . "', '" . $this->type . "', '" . $content . "')") or die ("error create new template");
                 ?>
                 <script>
                     setTimeout(function() {
@@ -53,11 +57,11 @@
             return $query;
         }
 
-        public function get($step) {
+        public function get($step, $stg) {
             global $wpdb;
             $userInfo = wp_get_current_user();
             $userid = $userInfo->id;
-            $query = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='" . $userid . "' AND type='" . $this->type . "'");
+            $query = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND strategy='$stg' AND userid='" . $userid . "' AND type='" . $this->type . "'");
             $blankquery = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='0' AND type='" . $this->type . "'");
             if (count($query) > 0) {
                 return $query[0]->content;

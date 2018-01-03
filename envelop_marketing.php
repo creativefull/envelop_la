@@ -61,13 +61,15 @@ if (!function_exists('envelope_marketing_la')) {
         $ContentView = new ENVContent();
         // IF MODIFY CONTENT
         if (@$_POST['submitContent']) {
+            $Content->setStrategy($_POST['strategy']);
             $updatedContent = $Content->save($_POST['step'], $_POST['editorContent']);
             print_r($updatedContent);
         }
         if (@$_GET['id']) {
             $data = array(
-                "content" => $Content->get($_GET['id']),
-                "step" => $_GET['id']
+                "content" => $Content->get($_GET['id'], $_GET['strategy']),
+                "step" => $_GET['id'],
+                'strategy' => $_GET['strategy']
             );
             $ContentView->edit($data);
         } else if (@$_GET['type'] == 'add') {
@@ -131,8 +133,9 @@ if (!function_exists('envelope_marketing_la')) {
         include_once 'move.php';
         $Move = new MoveUser();
 
+        $strategy = $atts['strategy'] ? $atts['strategy'] : 0;
         $headers = array('First Name', 'Last Name', 'Address 1', 'Address 2', 'City', 'State', 'Zipcode');
-        $theData = $wpdb->get_results("SELECT * FROM tbl_env_market WHERE userid ='" . $userid . "' AND seq ='" . $atts['step'] . "' ORDER BY created_at DESC");
+        $theData = $wpdb->get_results("SELECT * FROM tbl_env_market WHERE userid ='" . $userid . "' AND strategy='" . $strategy . "' AND seq ='" . $atts['step'] . "' ORDER BY created_at DESC");
         $timerdate = $wpdb->get_results("SELECT created_at  FROM tbl_env_market WHERE userid ='" . $userid . "' AND seq ='" . $atts['step'] . "' ORDER BY created_at ASC");
         $checkContent = $wpdb->get_results("SELECT tbl_content_env_id FROM tbl_content_env WHERE userid = '" . $userid . "' AND step = '" . $atts['step'] . "' AND type = 'content' ");
         $Table = new TableEVList($headers, $theData, $checkContent, $timerdate);
@@ -202,6 +205,7 @@ if (!function_exists('envelope_marketing_la')) {
             //     $seq = $resultData[0]->seq + 1;
             // }
             $seq = $_POST['step'];
+            $strategy = $_POST['strategy'] ? $_POST['strategy'] : 0;
 
             $skip = 0;
             foreach($dataCSV as $d) {
@@ -210,19 +214,20 @@ if (!function_exists('envelope_marketing_la')) {
                     'userid' => $userid,
                     'fname' => $d['fname'],
                     'lname' => $d['lname'],
-                    'address1' => $d['address1']
+                    'address1' => $d['address1'],
+                    'strategy' => $strategy
                 );
                 if ($UserModel->isExists($params)) {
                     $skip++;
                 } else {
-                    $object = array("('" . $userid . "', '".$seq."','".$d['fname']."','".$d['lname']."', '".$d['address1']."','".$d['address2']."','".$d['city']."','".$d['state']."','".$d['zipcode']."')");
+                    $object = array("('" . $userid . "', '".$seq."','".$d['fname']."','".$d['lname']."', '".$d['address1']."','".$d['address2']."','".$d['city']."','".$d['state']."','".$d['zipcode']."', '" . $strategy . "')");
                     $dataQuery[] = join(",", $object);
                 }
             }
 
             if (count($dataQuery) > 0) {
                 $dataHasil = (join(",", $dataQuery));
-                $querySQL = "INSERT INTO tbl_env_market (userid, seq, fname, lname, address1, address2, city, state, zipcode) VALUES $dataHasil";
+                $querySQL = "INSERT INTO tbl_env_market (userid, seq, fname, lname, address1, address2, city, state, zipcode, strategy) VALUES $dataHasil";
                 $wpdb->query($querySQL) or die ('Something wrong');
                 echo "<p class=\"alert alert-success\">Data Successfully Uploaded</p>";
             } else {

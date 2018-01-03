@@ -21,6 +21,7 @@ function create_table_em() {
     `state` VARCHAR(45) NULL,
     `city` VARCHAR(45) NULL,
     `zipcode` VARCHAR(45) NULL,
+    `strategy` INT 0,
     `created_at` DATETIME NULL,
     PRIMARY KEY (`id_env_market`));";
 
@@ -29,6 +30,7 @@ function create_table_em() {
         `userid` INT NULL,
         `step` INT NULL,
         `type` VARCHAR(20) NULL,
+        `strategy` INT 0,
         `content` LONGTEXT NULL,
         PRIMARY KEY (`tbl_content_env_id`));";
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
