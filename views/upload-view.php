@@ -2,7 +2,7 @@
     $userid = wp_get_current_user()->id;
     $userdata = get_userdata($userid);
     $companyName = get_user_meta($userid, 'company', true);
-    $phoneName = get_user_meta($userid, 'phone', true);
+    $phoneName = get_user_meta($userid, 'phoneMarketing', true);
     if ($companyName && $phoneName) {
 ?>
 <div class="panel panel-default">

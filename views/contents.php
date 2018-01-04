@@ -59,7 +59,7 @@
                     ?>
                 </div>
                 <a href="<?= home_url($wp->request); ?>" title="Back" class="btn btn-default">Back</a>
-                <input type="submit" name="submitContent" class="btn btn-primary" value="Modify Content"/>
+                <input type="submit" name="submitContent" class="btn btn-primary" value="Save Letter"/>
             </form>
             <?php
         }
@@ -69,8 +69,11 @@
             ?>
             <form action="" method="POST">
                 <div class="form-group">
-                    <label>Company Logo Url</label>
-                    <input type="text" name="companyLogo" value="<?= $data['companyLogo']; ?>"/>
+                    <!--<label>Company Logo Url</label>-->
+                    <?php
+                        $data['companyLogo'] = 'https://www.legendaryagent.com/wp-content/uploads/2018/01/la.jpg';
+                    ?>
+                    <input type="hidden" name="companyLogo" value="<?= $data['companyLogo']; ?>"/>
                 </div>
                 <div class="form-group">
                     <label style="position:absolute;">Header</label>

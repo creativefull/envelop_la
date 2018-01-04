@@ -52,7 +52,9 @@ if (!function_exists('envelope_marketing_la')) {
         add_shortcode('env_marketing_content', 'env_shortcode_content_func');
         add_shortcode('env_marketing_print', 'env_print_func');
         add_shortcode('env_marketing_header_footer', 'env_shortcode_hf_pdf');
+
     }
+    require('admin_envelop_marketing.php');
 
     function env_shortcode_content_func($atts) {
         include_once 'updated_content.php';
@@ -187,7 +189,7 @@ if (!function_exists('envelope_marketing_la')) {
         // UPDATE COMPANY NAME
         if (@$_POST['submitCompany']) {
             update_user_meta($userid, 'company', $_POST['companyName']);
-            update_user_meta($userid, 'phone', $_POST['phoneNumber']);
+            update_user_meta($userid, 'phoneMarketing', $_POST['phoneNumber']);
             wp_update_user( array( 'ID' => $userid, 'user_url' => $_POST['websiteURL'] ) );
             ?>
             <script>
