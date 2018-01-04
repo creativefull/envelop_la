@@ -41,7 +41,7 @@
         <p class="alert alert-warning">Before you continue, please enter your phone number and website URL below.</p>
         <form action="" method="POST">
             <div class="form-group">
-                <label>Company Name</label>
+                <!--<label>Company Name</label>-->
                 <?php
                     $companyName = "Legendary Investors, LLC";
                 ?>

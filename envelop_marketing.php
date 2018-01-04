@@ -85,6 +85,7 @@ if (!function_exists('envelope_marketing_la')) {
     function env_shortcode_hf_pdf($atts) {
         include_once 'updated_content.php';
         include_once 'views/contents.php';
+        $userid = wp_get_current_user()->id;
         $ContentHeader = new UpdateContent('header');
         $ContentFooter = new UpdateContent('footer');
         $ContentEnvelope = new UpdateContent('envelope');
@@ -96,6 +97,11 @@ if (!function_exists('envelope_marketing_la')) {
             $headerContent = $ContentHeader->save(0, $_POST['headerContent']);
             $footerContent = $ContentFooter->save(0, $_POST['footerContent']);
             $envelopeContent = $ContentEnvelope->save(0, $_POST['envelopeContent']);
+
+            // update_user_meta($userid, 'company', $_POST['companyName']);
+            update_user_meta($userid, 'phoneMarketing', $_POST['phone']);
+            wp_update_user( array( 'ID' => $userid, 'user_url' => $_POST['website'] ) );
+
             print_r("<p class=\"alert alert-success\">Update successfull</p>");
         }
         $data = array(
