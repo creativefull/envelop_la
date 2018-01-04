@@ -185,8 +185,14 @@ if (!function_exists('envelope_marketing_la')) {
         if (@$_POST['submitMove']) {
             $MoveStudent = $Move->bystep($_POST['moveUser'], $_POST['submitMove']);
             if ($MoveStudent) {
+                $_SESSION['status_upload'] = 'ok';
+                $_SESSION['message_upload'] = 'Selected user successfully moved to step ' . $_POST['submitMove'];
                 ?>
-                <p class="alert alert-success">Selected user successfully moved to step <?php echo $_POST['submitMove']; ?></p>
+                <script>
+                    setTimeout(function() {
+                        window.location.replace(window.location.href)
+                    }, 100);
+                </script>
                 <?php
             }
         }
