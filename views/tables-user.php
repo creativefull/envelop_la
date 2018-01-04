@@ -256,7 +256,7 @@ class TableEVList {
                     </div>
 
                 <div id="myletter<?= $options['step']; ?>" class="collapse">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $options['step']; ?>">Shortcode Helper</button>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal<?= $options['step']; ?>">Shortcode Helper</button>
                     <form action="" method="POST">
                         <?php
                             $settings = array( 'media_buttons' => false, 'editor_height' => '300' );
