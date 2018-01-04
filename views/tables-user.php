@@ -14,46 +14,48 @@ class TableEVList {
     }
 
     private function CountDown($id,$datetime){
-        ?>
-        <p id="demo<?= $id; ?>" class="alert alert-danger"></p>
-        <script>
-            var datetime<?= $id; ?>= "<?= date('Y-m-d H:i:s', strtotime( $datetime . ' + 4 day' )) ?>"; 
-            // Set the date we're counting down to
-            var countDownDate<?= $id; ?> = new Date(datetime<?= $id; ?>).getTime();
+        if ($id != "1") {
+            ?>
+            <p id="demo<?= $id; ?>" class="alert alert-danger"></p>
+            <script>
+                var datetime<?= $id; ?>= "<?= date('Y-m-d H:i:s', strtotime( $datetime . ' + 4 day' )) ?>"; 
+                // Set the date we're counting down to
+                var countDownDate<?= $id; ?> = new Date(datetime<?= $id; ?>).getTime();
 
-            // Update the count down every 1 second
-            var x<?= $id ?> = setInterval(function() {
+                // Update the count down every 1 second
+                var x<?= $id ?> = setInterval(function() {
 
-                // Get todays date and time
-                var now = new Date().getTime();
+                    // Get todays date and time
+                    var now = new Date().getTime();
 
-                // Find the distance between now an the count down date
-                var distance<?= $id; ?> = countDownDate<?= $id; ?> - now;
+                    // Find the distance between now an the count down date
+                    var distance<?= $id; ?> = countDownDate<?= $id; ?> - now;
 
-                // Time calculations for days, hours, minutes and seconds
-                var days = Math.floor(distance<?= $id; ?> / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((distance<?= $id; ?> % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance<?= $id; ?> % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance<?= $id; ?> % (1000 * 60)) / 1000);
+                    // Time calculations for days, hours, minutes and seconds
+                    var days = Math.floor(distance<?= $id; ?> / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance<?= $id; ?> % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance<?= $id; ?> % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance<?= $id; ?> % (1000 * 60)) / 1000);
 
-                // Display the result in the element with id="demo"
-                document.getElementById("demo<?= $id; ?>").innerHTML = "Send email alert in " +days + " days, " + hours + " hours, "
-                + minutes + " minutes, " + seconds + " seconds ";
-                    console.log( days + " " + hours + " " + minutes + " " + seconds)
-                            
+                    // Display the result in the element with id="demo"
+                    document.getElementById("demo<?= $id; ?>").innerHTML = "Send email alert in " +days + " days, " + hours + " hours, "
+                    + minutes + " minutes, " + seconds + " seconds ";
+                        console.log( days + " " + hours + " " + minutes + " " + seconds)
+                                
 
-                // If the count down is finished, write some text 
-                if (distance<?= $id; ?> < 0) {
-                    clearInterval(x<?= $id ?>);
-                    document.getElementById("demo<?= $id; ?>").innerHTML = "Send email alert in 00 days, 00 hours, 00 minutes, 00 seconds ";
-                    
-                }
-            }, 1000);
+                    // If the count down is finished, write some text 
+                    if (distance<?= $id; ?> < 0) {
+                        clearInterval(x<?= $id ?>);
+                        document.getElementById("demo<?= $id; ?>").innerHTML = "Send email alert in 00 days, 00 hours, 00 minutes, 00 seconds ";
+                        
+                    }
+                }, 1000);
 
-           
+            
 
-        </script>
-        <?php
+            </script>
+            <?php
+        }
         return ;
     }
 
