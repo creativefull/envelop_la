@@ -23,9 +23,9 @@
             $logoMeta = get_user_meta($userid, 'companyLogo', true);
             return $logoMeta;
         }
-        public function save($step, $content) {
+        public function save($step, $content, $uid) {
             global $wpdb;
-            $userid = wp_get_current_user()->id;
+            $userid = $uid == 'default' ? '0' : wp_get_current_user()->id;
             $query1 = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='" . $userid . "' AND strategy='" . $this->stg . "' AND type='" . $this->type . "'");
             if (count($query1) > 0 ) {
                 // UPDATE THE CONTENT
@@ -49,10 +49,10 @@
             }
         }
 
-        public function all() {
+        public function all($uid) {
             global $wpdb;
             $userInfo = wp_get_current_user();
-            $userid = $userInfo->id;
+            $userid = $uid == 'default' ? '0' : $userInfo->id;
             $query = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE userid='" . $userid . "' AND type='" . $this->type . "' ORDER BY step");
             return $query;
         }

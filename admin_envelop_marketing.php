@@ -12,14 +12,21 @@
             $ContentView = new AdminContent();
             // IF FORM SUBMIT
             if (@$_POST['submitContent']) {
-                return $Content->save(0, $_POST['defaultContent']);
+                $Content->setStrategy($_POST['strategy']);
+                return $Content->save($_POST['step'], $_POST['defaultContent' . $_POST['step'] . $_POST['strategy']], 'default');
             }
 
             // GET DEFAULT CONTENT
-            $theData = $Content->get(0, 0);
-            return $ContentView->view(array(
-                'content' => $theData
-            ));
+            $allContent = $Content->all('default');
+
+            foreach($allContent as $data) {
+                // $theData = $Content->get(0, 0);
+                $ContentView->view(array(
+                    'content' => $data->content,
+                    'step' => $data->step,
+                    'strategy' => $data->strategy
+                ));
+            }
         }
 
         // HOOK TO GET DEFAULT CONTENT
