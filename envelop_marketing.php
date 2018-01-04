@@ -66,7 +66,8 @@ if (!function_exists('envelope_marketing_la')) {
             <?php
             unset($_SESSION['status_upload']);
             unset($_SESSION['message_upload']);
-        } else if ($_SESSION['status_upload'] == 'ok') {
+        } 
+        if (@$_SESSION['status_upload'] == 'ok') {
             ?>
             <p class="alert alert-success"><?= @$_SESSION['message_upload']; ?></p>
             <?php
@@ -271,10 +272,20 @@ if (!function_exists('envelope_marketing_la')) {
                 $wpdb->query($querySQL) or die ('Something wrong');
                 $_SESSION['status_upload'] = 'ok';
                 $_SESSION['message_upload'] = 'Data Successfully Uploaded';
+                ?>
+                <script>
+                    window.location.href = location.href
+                </script>
+                <?php
                 // echo "<p class=\"alert alert-success\">Data Successfully Uploaded</p>";
             } else {
                 $_SESSION['status_upload'] = 'error';
                 $_SESSION['message_upload'] = 'Nothing new data to insert';
+                ?>
+                <script>
+                    window.location.href = location.href
+                </script>
+                <?php
                 // echo "<p class=\"alert alert-warning\">Nothing new data to insert</p>";
             }
         }
