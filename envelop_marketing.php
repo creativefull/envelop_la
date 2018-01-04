@@ -47,14 +47,33 @@ if (!function_exists('envelope_marketing_la')) {
         $HeaderFooter = new HeaderFooter();
         $HeaderFooter->initHeader();
 
+        session_start();
+
         add_shortcode('env_marketing_upload', 'env_shortcode_upload_func');
         add_shortcode('env_marketing', 'env_shortcode_func');
         add_shortcode('env_marketing_content', 'env_shortcode_content_func');
         add_shortcode('env_marketing_print', 'env_print_func');
         add_shortcode('env_marketing_header_footer', 'env_shortcode_hf_pdf');
+        add_shortcode('env_content_alert_result', 'env_content_alert_result');
 
     }
     require('admin_envelop_marketing.php');
+
+    function env_content_alert_result() {
+        if (@$_SESSION['status_upload'] == 'error') {
+            ?>
+            <p class="alert alert-warning"><?= @$_SESSION['message_upload']; ?></p>
+            <?php
+            unset($_SESSION['status_upload']);
+            unset($_SESSION['message_upload']);
+        } else if ($_SESSION['status_upload'] == 'ok') {
+            ?>
+            <p class="alert alert-success"><?= @$_SESSION['message_upload']; ?></p>
+            <?php
+            unset($_SESSION['status_upload']);
+            unset($_SESSION['message_upload']);
+        }
+    }
 
     function env_shortcode_content_func($atts) {
         include_once 'updated_content.php';
@@ -250,9 +269,13 @@ if (!function_exists('envelope_marketing_la')) {
                 $dataHasil = (join(",", $dataQuery));
                 $querySQL = "INSERT INTO tbl_env_market (userid, seq, fname, lname, address1, address2, city, state, zipcode, strategy) VALUES $dataHasil";
                 $wpdb->query($querySQL) or die ('Something wrong');
-                echo "<p class=\"alert alert-success\">Data Successfully Uploaded</p>";
+                $_SESSION['status_upload'] = 'ok';
+                $_SESSION['message_upload'] = 'Data Successfully Uploaded';
+                // echo "<p class=\"alert alert-success\">Data Successfully Uploaded</p>";
             } else {
-                echo "<p class=\"alert alert-warning\">Nothing new data to insert</p>";
+                $_SESSION['status_upload'] = 'error';
+                $_SESSION['message_upload'] = 'Nothing new data to insert';
+                // echo "<p class=\"alert alert-warning\">Nothing new data to insert</p>";
             }
         }
         include_once 'views/upload-view.php';
