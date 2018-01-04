@@ -126,7 +126,6 @@ class TableEVList {
                             <tr>
                                 <td colspan="<?= $options['move'] ? 4 : 3; ?>">
                                      <!-- Trigger the modal with a button -->
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $options['step']; ?>">Shortcode Helper</button>
                                         <?php
                                     
                                         if (count($this->checkcontent) >= 1) { ?>
@@ -152,7 +151,7 @@ class TableEVList {
                                         ?>
                                         <td>
                                         <?php if (count($this->checkcontent) >= 1) { ?>
-                                            <a class="btn btn-primary printmove" target="_blank" href="<?php echo get_permalink($options['print']); ?>?move=<?= $options['move']; ?>&pdf=<?= $options['print']; ?>">Print & Move</a>
+                                            <a class="btn btn-primary printmove" target="_blank" href="<?php echo get_permalink($options['print']); ?>?move=<?= $options['move']; ?>&pdf=<?= $options['print']; ?>" onclick="javascript:return confirm('Are You Sure You Would Like to Print and Move These Contacts to the Next Sequence')">Print & Move</a>
                                         <?php } ?>
                                         </td>
 
@@ -257,6 +256,7 @@ class TableEVList {
                     </div>
 
                 <div id="myletter<?= $options['step']; ?>" class="collapse">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $options['step']; ?>">Shortcode Helper</button>
                     <form action="" method="POST">
                         <?php
                             $settings = array( 'media_buttons' => false, 'editor_height' => '300' );
