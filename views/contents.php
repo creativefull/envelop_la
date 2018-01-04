@@ -90,11 +90,11 @@
                     ?>
                 </div>
                 <div class="form-group">
-                    <label style="position:absolute;">Phone</label>
+                    <label>Phone</label>
                     <input type="phone" name="phone" value="<?= $data['phone']; ?>" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <label style="position:absolute;">Website</label>
+                    <label>Website</label>
                     <input type="website" name="website" value="<?= $data['website']; ?>" class="form-control"/>
                 </div>
                 <input type="submit" name="submitHFEL" class="btn btn-primary" value="Modify Content"/>

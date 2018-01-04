@@ -91,6 +91,11 @@ if (!function_exists('envelope_marketing_la')) {
         $ContentEnvelope = new UpdateContent('envelope');
         $ContentLogo = new UpdateContent('clogo');
         $ContentView = new ENVContent();
+
+        $userdata = get_userdata($userid);
+        $companyName = get_user_meta($userid, 'company', true);
+        $phoneName = get_user_meta($userid, 'phoneMarketing', true);
+
         // IF MODIFY CONTENT
         if (@$_POST['submitHFEL']) {
             $ContentLogo->saveLogo($_POST['companyLogo']);
@@ -110,7 +115,9 @@ if (!function_exists('envelope_marketing_la')) {
             'envelopeContent' => $ContentEnvelope->get(0) != "" ? $ContentEnvelope->get(0) : "<p style=\"padding-left: 420px;\"><strong>Attn : [fname] [lname]</strong>
             [address1] [address2]
             [city] [state] [zipcode]</p>",
-            'companyLogo' => $ContentLogo->getLogo()
+            'companyLogo' => $ContentLogo->getLogo(),
+            'website' => $userdata->user_url,
+            'phone' => $phoneName
         );
         $ContentView->headerFooter($data);
     }
