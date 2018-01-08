@@ -90,6 +90,14 @@
                     ?>
                 </div>
                 <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" name="fname" class="form-control" value="<?= $data['fname']; ?>"/>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" name="lname" class="form-control" value="<?= $data['lname']; ?>"/>
+                </div>
+                <div class="form-group">
                     <label>Phone</label>
                     <input type="phone" name="phone" value="<?= $data['phone']; ?>" class="form-control"/>
                 </div>

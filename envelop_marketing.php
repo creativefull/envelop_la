@@ -117,6 +117,8 @@ if (!function_exists('envelope_marketing_la')) {
         $userdata = get_userdata($userid);
         $companyName = get_user_meta($userid, 'company', true);
         $phoneName = get_user_meta($userid, 'phoneMarketing', true);
+        $fname = get_user_meta($userid, 'marketing_fname', true);
+        $lname = get_user_meta($userid, 'marketing_lname', true);
 
         // IF MODIFY CONTENT
         if (@$_POST['submitHFEL']) {
@@ -127,6 +129,8 @@ if (!function_exists('envelope_marketing_la')) {
 
             // update_user_meta($userid, 'company', $_POST['companyName']);
             update_user_meta($userid, 'phoneMarketing', $_POST['phone']);
+            update_user_meta($userid, 'marketing_fname', $_POST['fname']);
+            update_user_meta($userid, 'marketing_fname', $_POST['lname']);
             wp_update_user( array( 'ID' => $userid, 'user_url' => $_POST['website'] ) );
 
             print_r("<p class=\"alert alert-success\">Update successfull</p>");
@@ -139,7 +143,9 @@ if (!function_exists('envelope_marketing_la')) {
             [city] [state] [zipcode]</p>",
             'companyLogo' => $ContentLogo->getLogo(),
             'website' => $userdata->user_url,
-            'phone' => $phoneName
+            'phone' => $phoneName,
+            'fname' => $fname,
+            'lname' => $lname
         );
         $ContentView->headerFooter($data);
     }
@@ -243,6 +249,8 @@ if (!function_exists('envelope_marketing_la')) {
             update_user_meta($userid, 'marketing_fname', $_POST['fname']);
             update_user_meta($userid, 'marketing_lname', $_POST['lname']);
             wp_update_user( array( 'ID' => $userid, 'user_url' => $_POST['websiteURL'] ) );
+            $_SESSION['status_upload'] = 'ok';
+            $_SESSION['message_upload'] = 'Data Successfully Updated';
             ?>
             <script>
                 setTimeout(function() {
