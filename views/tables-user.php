@@ -20,6 +20,7 @@ class TableEVList {
             <script>
                 var datetime<?= $id; ?>= "<?= date('Y-m-d H:i:s', strtotime( $datetime . ' + 4 day' )) ?>"; 
                 var timestamp = Math.floor("<?= time(); ?>");
+                console.log("INI TIMESTAMP", timestamp);
                 function updateTime() {
                     timestamp++;
                 }
