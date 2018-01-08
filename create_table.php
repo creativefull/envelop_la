@@ -32,6 +32,7 @@ function create_table_em() {
         `type` VARCHAR(20) NULL,
         `strategy` INT 0,
         `content` LONGTEXT NULL,
+        `title` VARCHAR(20),
         PRIMARY KEY (`tbl_content_env_id`));";
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sqlQuery );

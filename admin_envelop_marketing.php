@@ -13,7 +13,7 @@
             // IF FORM SUBMIT
             if (@$_POST['submitContent']) {
                 $Content->setStrategy($_POST['strategy']);
-                return $Content->save($_POST['step'], $_POST['defaultContent' . $_POST['step'] . $_POST['strategy']], 'default');
+                return $Content->save($_POST['step'], $_POST['defaultContent' . $_POST['step'] . $_POST['strategy']], 'default', $_POST['title']);
             }
 
             // GET DEFAULT CONTENT
@@ -24,7 +24,8 @@
                 $ContentView->view(array(
                     'content' => $data->content,
                     'step' => $data->step,
-                    'strategy' => $data->strategy
+                    'strategy' => $data->strategy,
+                    'title' => $data->title
                 ));
             }
         }

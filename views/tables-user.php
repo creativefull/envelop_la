@@ -151,7 +151,7 @@ class TableEVList {
                                         ?>
                                         <td>
                                         <?php if (count($this->checkcontent) >= 1) { ?>
-                                            <a class="btn btn-primary printmove" target="_blank" href="<?php echo get_permalink($options['print']); ?>?move=<?= $options['move']; ?>&pdf=<?= $options['print']; ?>" onclick="javascript:return confirm('Are You Sure You Would Like to Print and Move These Contacts to the Next Sequence')">Print & Move</a>
+                                            <a class="btn btn-primary printmove" target="_blank" href="<?php echo get_permalink($options['print']); ?>?move=<?= $options['move']; ?>&pdf=<?= $options['print']; ?>" onclick="javascript:return confirm('Are You Sure You Would Like to Print and Move These Contacts to the Next Sequence?')">Print & Move</a>
                                         <?php } ?>
                                         </td>
 
