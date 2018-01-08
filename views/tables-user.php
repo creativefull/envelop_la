@@ -19,7 +19,7 @@ class TableEVList {
             <p id="demo<?= $id; ?>" class="alert alert-danger"></p>
             <script>
                 var datetime<?= $id; ?>= "<?= date('Y-m-d H:i:s', strtotime( $datetime . ' + 4 day' )) ?>"; 
-                var timestamp = "<?= time(); ?>";
+                var timestamp = Math.floor("<?= time(); ?>");
                 function updateTime() {
                     timestamp++;
                 }
