@@ -39,14 +39,14 @@ class TableEVList {
 
                     // Display the result in the element with id="demo"
                     document.getElementById("demo<?= $id; ?>").innerHTML = "Send email alert in " +days + " days, " + hours + " hours, "
-                    + minutes + " minutes, " + seconds + " seconds ";
+                    + minutes + " minutes, " + seconds + " seconds - We will email you a reminder as well!";
                         console.log( days + " " + hours + " " + minutes + " " + seconds)
                                 
 
                     // If the count down is finished, write some text 
                     if (distance<?= $id; ?> < 0) {
                         clearInterval(x<?= $id ?>);
-                        document.getElementById("demo<?= $id; ?>").innerHTML = "Send email alert in 00 days, 00 hours, 00 minutes, 00 seconds ";
+                        document.getElementById("demo<?= $id; ?>").innerHTML = "Send next letter in 00 days, 00 hours, 00 minutes, 00 seconds";
                         
                     }
                 }, 1000);
@@ -265,7 +265,7 @@ class TableEVList {
                         <br/>
                         <input type="hidden" name="editContent" value="yes"/>
                         <input type="hidden" name="step" value="<?= $options['step']; ?>"/>
-                        <input type="submit" class="btn btn-primary" name="submitContent" value="MODIFY LETTER"/>
+                        <input type="submit" class="btn btn-primary" name="submitContent" value="SAVE LETTER"/>
                     </form>
                 </div>
             <?php

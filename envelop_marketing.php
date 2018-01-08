@@ -31,7 +31,9 @@ if (!function_exists('envelope_marketing_la')) {
             if ( strtotime($nowdatetime) >= strtotime($datetimebefore) &&  strtotime($nowdatetime) <= strtotime($datestop) ) {
                 $userdata = get_userdata( $datatask->userid );
                 $body = "<html><body>Hello,<br><br>
-                This is a reminder to login to LegendaryAgent.com and send your mailer Step $datatask->seq ! You DO NOT want to delay on this step because consistent communication is what is going to get us our next deal. Login and send out the next mailer as soon as possible. <br><br>
+                This is a reminder to login to LegendaryAgent.com and send out Sequence $datatask->seq in the Probate Mailing Center! You DO NOT want to delay on this step because consistent communication is what is going to get us our next deal. On average, you will get a response after you mail the sellers 7-12+ times (don't give up!).  <br><br>
+                
+                Login and send out the next mailer as soon as possible.  <br><br>
                 Let us know if you have any questions,  <br><br><br>
                 Legendary Agent</body></html>";
                 wp_mail( $userdata->user_email, $subject, $body );
@@ -179,6 +181,15 @@ if (!function_exists('envelope_marketing_la')) {
         if (@$_POST['editContent']) {
             $updatedContent = $Content->save($_POST['step'], $_POST['editorContent' . $_POST['step']]);
             print_r($updatedContent);
+            $_SESSION['status_upload'] = 'ok';
+            $_SESSION['message_upload'] = 'Letter Content updated ';
+            ?>
+            <script>
+                setTimeout(function() {
+                    window.location.replace(window.location.href)
+                }, 100);
+            </script>
+            <?php
         }
 
         // IF STUDENT MOVE
@@ -209,7 +220,7 @@ if (!function_exists('envelope_marketing_la')) {
             $nextStep = $atts['step'] + 1;
             $nextData = $wpdb->get_results("SELECT userid FROM tbl_env_market WHERE userid ='" . $userid . "' AND strategy='" . $strategy . "' AND seq ='" . $nextStep . "' ORDER BY created_at DESC LIMIT 0,1");
             if (count($nextData) >= 1) {
-                echo "<p class=\"alert alert-warning\">Previous Sent Mailers - View";
+                echo "<p class=\"alert alert-warning\">Previous Sent Mailers - View (On progress ...)";
             } else {
                 echo "<p class=\"alert alert-warning\">No Contact Found</p>";
             }
@@ -286,7 +297,7 @@ if (!function_exists('envelope_marketing_la')) {
                 // echo "<p class=\"alert alert-success\">Data Successfully Uploaded</p>";
             } else {
                 $_SESSION['status_upload'] = 'error';
-                $_SESSION['message_upload'] = 'Nothing new data to insert';
+                $_SESSION['message_upload'] = 'Data Exist, No new data uploaded';
                 ?>
                 <script>
                     window.location.href = location.href
