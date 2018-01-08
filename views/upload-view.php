@@ -3,7 +3,9 @@
     $userdata = get_userdata($userid);
     $companyName = get_user_meta($userid, 'company', true);
     $phoneName = get_user_meta($userid, 'phoneMarketing', true);
-    if ($companyName && $phoneName) {
+    $fname = get_user_meta($userid, 'marketing_fname', true) ? get_user_meta($userid, 'marketing_fname', true) : $userdata->first_name;
+    $lname = get_user_meta($userid, 'marketing_lname', true) ? get_user_meta($userid, 'marketing_lname', true) : $userdata->last_name;;
+    if ($companyName && $phoneName && get_user_meta($userid, 'marketing_lname', true) && get_user_meta($userid, 'marketing_fname', true)) {
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -46,6 +48,14 @@
                     $companyName = "Legendary Investors, LLC";
                 ?>
                 <input type="hidden" name="companyName" class="form-control" value="<?= $companyName; ?>" />
+            </div>
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="fname" class="form-control" value="<?= $fname; ?>"/>
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="lname" class="form-control" value="<?= $lname; ?>"/>
             </div>
             <div class="form-group">
                 <label>Enter Phone Number Here</label>
