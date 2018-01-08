@@ -20,13 +20,13 @@ class TableEVList {
             <script>
                 var datetime<?= $id; ?>= "<?= date('Y-m-d H:i:s', strtotime( $datetime . ' + 4 day' )) ?>"; 
                 var timestamp = Math.floor("<?= time(); ?>");
-                console.log("INI TIMESTAMP", timestamp);
                 function updateTime() {
                     timestamp++;
                 }
                 setInterval(updateTime, 1000);
                 // Set the date we're counting down to
-                var countDownDate<?= $id; ?> = new Date(datetime<?= $id; ?>).getTime();
+                var countDownDate<?= $id; ?> = moment(datetime<?= $id; ?>, "YYYY-MM-DD HH:mm:ss").unix();
+                console.log("INI TIMESTAMP", timestamp);
 
                 // Update the count down every 1 second
                 var x<?= $id ?> = setInterval(function() {
