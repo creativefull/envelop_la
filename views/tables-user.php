@@ -19,6 +19,11 @@ class TableEVList {
             <p id="demo<?= $id; ?>" class="alert alert-danger"></p>
             <script>
                 var datetime<?= $id; ?>= "<?= date('Y-m-d H:i:s', strtotime( $datetime . ' + 4 day' )) ?>"; 
+                var timestamp = "<?= time(); ?>";
+                function updateTime() {
+                    timestamp++;
+                }
+                setInterval(updateTime, 1000);
                 // Set the date we're counting down to
                 var countDownDate<?= $id; ?> = new Date(datetime<?= $id; ?>).getTime();
 
@@ -26,7 +31,8 @@ class TableEVList {
                 var x<?= $id ?> = setInterval(function() {
 
                     // Get todays date and time
-                    var now = new Date().getTime();
+                    // var now = new Date().getTime();
+                    var now = timestamp;
 
                     // Find the distance between now an the count down date
                     var distance<?= $id; ?> = countDownDate<?= $id; ?> - now;

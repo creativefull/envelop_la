@@ -57,7 +57,7 @@
             return $query;
         }
 
-        public function get($step, $stg) {
+        public function get($step, $stg=0) {
             global $wpdb;
             $userInfo = wp_get_current_user();
             $userid = $userInfo->id;
