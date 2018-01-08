@@ -32,8 +32,8 @@ class TableEVList {
                 var x<?= $id ?> = setInterval(function() {
 
                     // Get todays date and time
-                    // var now = new Date().getTime();
-                    var now = timestamp;
+                    var now = new Date().getTime();
+                    // var now = timestamp;
 
                     // Find the distance between now an the count down date
                     var distance<?= $id; ?> = countDownDate<?= $id; ?> - now;
