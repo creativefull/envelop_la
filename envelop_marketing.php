@@ -240,6 +240,8 @@ if (!function_exists('envelope_marketing_la')) {
         if (@$_POST['submitCompany']) {
             update_user_meta($userid, 'company', $_POST['companyName']);
             update_user_meta($userid, 'phoneMarketing', $_POST['phoneNumber']);
+            update_user_meta($userid, 'marketing_fname', $_POST['fname']);
+            update_user_meta($userid, 'marketing_lname', $_POST['lname']);
             wp_update_user( array( 'ID' => $userid, 'user_url' => $_POST['websiteURL'] ) );
             ?>
             <script>
@@ -250,7 +252,7 @@ if (!function_exists('envelope_marketing_la')) {
             <?php
         }
 
-        if ($_POST['submit']) {
+        if (@$_POST['submit']) {
 
             // INITIAL FILE
             $CSV->initFile($_FILES['csv_file']);
