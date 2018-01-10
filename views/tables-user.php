@@ -233,7 +233,7 @@ class TableEVList {
                                         </tr>
                                         <tr>
                                             <td>[myname]</td>
-                                            <td>Your Name (<?= $current_user->user_firstname . " " . $current_user->user_lastname; ?>)</td>
+                                            <td>Your Name (<?= get_user_meta($userid, 'marketing_fname', true) . " " . get_user_meta($userid, 'marketing_lname', true) ?>)</td>
                                         </tr>
                                         <tr>
                                             <td>[myphone]</td>
