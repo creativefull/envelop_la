@@ -1,12 +1,8 @@
 <?php
     class UpdateContent {
         private $type;
-        private $stg = 0;
         public function __construct($type = 'content') {
             $this->type = $type;
-        }
-        public function setStrategy($stg) {
-            $this->stg = $stg;
         }
         public function saveLogo($logo) {
             $userid = wp_get_current_user()->id;
@@ -23,13 +19,13 @@
             $logoMeta = get_user_meta($userid, 'companyLogo', true);
             return $logoMeta;
         }
-        public function save($step, $content, $uid, $title='') {
+        public function save($step, $content) {
             global $wpdb;
-            $userid = $uid == 'default' ? '0' : wp_get_current_user()->id;
-            $query1 = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='" . $userid . "' AND strategy='" . $this->stg . "' AND type='" . $this->type . "'");
+            $userid = wp_get_current_user()->id;
+            $query1 = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='" . $userid . "' AND type='" . $this->type . "'");
             if (count($query1) > 0 ) {
                 // UPDATE THE CONTENT
-                $wpdb->query("UPDATE tbl_content_env SET title='" . $title . "', content='" . $content . "' WHERE step='$step' AND userid='" . $userid . "' AND strategy='" . $this->stg . "' AND type='" . $this->type . "'");
+                $wpdb->query("UPDATE tbl_content_env SET content='" . $content . "' WHERE step='$step' AND userid='" . $userid . "' AND type='" . $this->type . "'");
                 ?>
                 <script>
                     setTimeout(function() {
@@ -38,7 +34,7 @@
                 </script>
                 <?php
             } else {
-                $wpdb->query("INSERT INTO tbl_content_env (userid, step, strategy, type, content, title) VALUES ('" . $userid . "', '" . $step . "', '" . $this->stg . "', '" . $this->type . "', '" . $content . "', '" . $title . "')") or die ("error create new template");
+                $wpdb->query("INSERT INTO tbl_content_env (userid, step, type, content) VALUES ('" . $userid . "', '" . $step . "', '" . $this->type . "', '" . $content . "')") or die ("error create new template");
                 ?>
                 <script>
                     setTimeout(function() {
@@ -49,19 +45,19 @@
             }
         }
 
-        public function all($uid) {
+        public function all() {
             global $wpdb;
             $userInfo = wp_get_current_user();
-            $userid = $uid == 'default' ? '0' : $userInfo->id;
+            $userid = $userInfo->id;
             $query = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE userid='" . $userid . "' AND type='" . $this->type . "' ORDER BY step");
             return $query;
         }
 
-        public function get($step, $stg=0) {
+        public function get($step) {
             global $wpdb;
             $userInfo = wp_get_current_user();
             $userid = $userInfo->id;
-            $query = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND strategy='$stg' AND userid='" . $userid . "' AND type='" . $this->type . "'");
+            $query = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='" . $userid . "' AND type='" . $this->type . "'");
             $blankquery = $wpdb->get_results("SELECT * FROM tbl_content_env WHERE step='$step' AND userid='0' AND type='" . $this->type . "'");
             if (count($query) > 0) {
                 return $query[0]->content;
@@ -78,7 +74,7 @@
             get_currentuserinfo();
 
             $userinfo = wp_get_current_user();
-            $name = $current_user->user_firstname . " " . $current_user->user_lastname;
+            $name = get_user_meta($userinfo->ID, 'marketing_fname', true) . " " . get_user_meta($userinfo->ID, 'marketing_lname', true);
             if (empty ($_GET[envelope])) {
                 // This for Letter
                 $strx = "SELECT M.*, C.content FROM tbl_env_market as M INNER JOIN tbl_content_env AS C ON (C.userid = M.userid && C.step = M.seq) WHERE M.userid='$userinfo->id' AND M.seq=$step";

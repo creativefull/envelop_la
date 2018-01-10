@@ -31,7 +31,7 @@ if (!function_exists('envelope_marketing_la')) {
             if ( strtotime($nowdatetime) >= strtotime($datetimebefore) &&  strtotime($nowdatetime) <= strtotime($datestop) ) {
                 $userdata = get_userdata( $datatask->userid );
                 $body = "<html><body>Hello,<br><br>
-                This is a reminder to login to LegendaryAgent.com and send out Sequence $datatask->seq in the Probate Mailing Center! You DO NOT want to delay on this step because consistent communication is what is going to get us our next deal. On average, you will get a response after you mail the sellers 7-12+ times (don't give up!).  <br><br>
+                This is a reminder to login to LegendaryAgent.com and send out Sequence '.$datatask->seq.' in the Probate Mailing Center! You DO NOT want to delay on this step because consistent communication is what is going to get us our next deal. On average, you will get a response after you mail the sellers 7-12+ times (don't give up!).  <br><br>
                 
                 Login and send out the next mailer as soon as possible.  <br><br>
                 Let us know if you have any questions,  <br><br><br>
