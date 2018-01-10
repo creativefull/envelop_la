@@ -32,8 +32,21 @@
                 $wpdb->query("UPDATE tbl_content_env SET title='" . $title . "', content='" . $content . "' WHERE step='$step' AND userid='" . $userid . "' AND strategy='" . $this->stg . "' AND type='" . $this->type . "'");
                 ?>
                 <script>
+                    function refineURL()
+                    {
+                        //get full URL
+                        var currURL= window.location.href; //get current address
+
+                        //Get the URL between what's after '/' and befor '?' 
+                        //1- get URL after'/'
+                        var afterDomain= currURL.substring(currURL.lastIndexOf('/') + 1);
+                        //2- get the part before '?'
+                        var beforeQueryString= afterDomain.split("?")[0];  
+
+                        return beforeQueryString;     
+                    }
                     setTimeout(function() {
-                        window.location.replace(window.location.href)
+                        window.location.replace(window.location.href.replace(new RegExp(refineURL(), 'gi'), ''))
                     }, 100);
                 </script>
                 <?php
@@ -41,8 +54,21 @@
                 $wpdb->query("INSERT INTO tbl_content_env (userid, step, strategy, type, content, title) VALUES ('" . $userid . "', '" . $step . "', '" . $this->stg . "', '" . $this->type . "', '" . $content . "', '" . $title . "')") or die ("error create new template");
                 ?>
                 <script>
+                    function refineURL()
+                    {
+                        //get full URL
+                        var currURL= window.location.href; //get current address
+
+                        //Get the URL between what's after '/' and befor '?' 
+                        //1- get URL after'/'
+                        var afterDomain= currURL.substring(currURL.lastIndexOf('/') + 1);
+                        //2- get the part before '?'
+                        var beforeQueryString= afterDomain.split("?")[0];  
+
+                        return beforeQueryString;     
+                    }
                     setTimeout(function() {
-                        window.location.replace(window.location.href)
+                        window.location.replace(window.location.href.replace(new RegExp(refineURL(), 'gi'), ''))
                     }, 100);
                 </script>
                 <?php
