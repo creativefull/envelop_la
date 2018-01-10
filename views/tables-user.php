@@ -26,7 +26,6 @@ class TableEVList {
                 setInterval(updateTime, 1000);
                 // Set the date we're counting down to
                 var countDownDate<?= $id; ?> = new Date(datetime<?= $id; ?>).getTime();
-                console.log("INI TIMESTAMP", timestamp);
 
                 // Update the count down every 1 second
                 var x<?= $id ?> = setInterval(function() {
