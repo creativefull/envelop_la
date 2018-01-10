@@ -30,6 +30,8 @@
             if (count($query1) > 0 ) {
                 // UPDATE THE CONTENT
                 $wpdb->query("UPDATE tbl_content_env SET title='" . $title . "', content='" . $content . "' WHERE step='$step' AND userid='" . $userid . "' AND strategy='" . $this->stg . "' AND type='" . $this->type . "'");
+                $_SESSION['status_upload'] = 'ok';
+                $_SESSION['message_upload'] = 'Letter Content updated ';
                 ?>
                 <script>
                     function refineURL()
@@ -52,6 +54,8 @@
                 <?php
             } else {
                 $wpdb->query("INSERT INTO tbl_content_env (userid, step, strategy, type, content, title) VALUES ('" . $userid . "', '" . $step . "', '" . $this->stg . "', '" . $this->type . "', '" . $content . "', '" . $title . "')") or die ("error create new template");
+                $_SESSION['status_upload'] = 'ok';
+                $_SESSION['message_upload'] = 'Letter Content updated ';
                 ?>
                 <script>
                     function refineURL()

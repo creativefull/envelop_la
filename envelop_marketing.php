@@ -186,7 +186,7 @@ if (!function_exists('envelope_marketing_la')) {
         // IF CONTENT EDITED
         if (@$_POST['editContent']) {
             $updatedContent = $Content->save($_POST['step'], $_POST['editorContent' . $_POST['step']]);
-            print_r($updatedContent);
+            // print_r($updatedContent);
             $_SESSION['status_upload'] = 'ok';
             $_SESSION['message_upload'] = 'Letter Content updated ';
             ?>
