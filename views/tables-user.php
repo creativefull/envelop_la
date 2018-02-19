@@ -44,9 +44,9 @@ class TableEVList {
                     var seconds = Math.floor((distance<?= $id; ?> % (1000 * 60)) / 1000);
 
                     // Display the result in the element with id="demo"
-                    document.getElementById("demo<?= $id; ?>").innerHTML = "Send email alert in " +days + " days, " + hours + " hours, "
+                    document.getElementById("demo<?= $id; ?>").innerHTML = "Send next letter in " +days + " days, " + hours + " hours, "
                     + minutes + " minutes, " + seconds + " seconds - We will email you a reminder as well!";
-                        console.log( days + " " + hours + " " + minutes + " " + seconds)
+                        // console.log( days + " " + hours + " " + minutes + " " + seconds)
                                 
 
                     // If the count down is finished, write some text 
@@ -85,7 +85,7 @@ class TableEVList {
                         if ($options['move']) {
                             ?>
                             <th>
-
+                            <input type="checkbox" class="selectall" >
                             </th>
                             <?php
                         }
@@ -135,7 +135,7 @@ class TableEVList {
                                         <?php
                                     
                                         if (count($this->checkcontent) >= 1) { ?>
-                                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#myletter<?= $options['step']; ?>">Edit Letter</button>
+                                            <button type="button" class="btn btn-primary" data-tog="tooltip" title="This allows you to make changes to your mailings. You can test out different fonts and sizes." data-toggle="collapse" data-target="#myletter<?= $options['step']; ?>">Edit Letter</button>
                                         <?php } else { ?>
                                             <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#myletter<?= $options['step']; ?>">Create Letter</button>
                                         <?php } ?>
@@ -145,11 +145,13 @@ class TableEVList {
                                     <?php
                                     
                                     if (count($this->checkcontent) >= 1) { ?>
-                                        <a class="btn btn-primary" target="_blank" href="<?php echo get_permalink($options['print']); ?>?pdf=<?= $options['print']; ?>">Letter Preview</a>
+                                        <a class="btn btn-primary" data-tog="tooltip" title="Get a quick glimpse of what your mailing will look like. Make sure everything looks good before you print!
+" target="_blank" href="<?php echo get_permalink($options['print']); ?>?pdf=<?= $options['print']; ?>">Letter Preview</a>
                                         
-                                        <a class="btn btn-primary" target="_blank" href="<?php echo get_permalink($options['print']); ?>?pdf=<?= $options['print']; ?>&envelope=true">Print Envelope</a>
+                                        <a class="btn btn-primary" data-tog="tooltip" title="This allows you to print homeowners' names directly onto the envelope. We recommend handwriting!
+" target="_blank" href="<?php echo get_permalink($options['print']); ?>?pdf=<?= $options['print']; ?>&envelope=true">Print Envelope</a>
                                     <?php } else {
-                                        echo "<p> Please CREATE LETTER before PRINT</p>";
+                                        echo "<p> Click CREATE LETTER on the left before you continue.</p>";
                                     }?> 
                                 </td>
                                 <?php
@@ -157,12 +159,14 @@ class TableEVList {
                                         ?>
                                         <td>
                                         <?php if (count($this->checkcontent) >= 1) { ?>
-                                            <a class="btn btn-primary printmove" target="_blank" href="<?php echo get_permalink($options['print']); ?>?move=<?= $options['move']; ?>&pdf=<?= $options['print']; ?>" onclick="javascript:return confirm('Are You Sure You Would Like to Print and Move These Contacts to the Next Sequence?')">Print & Move</a>
+                                            <a class="btn btn-primary printmove" data-tog="tooltip" title="This will move everyone in the sequence to the next sequence." target="_blank" href="<?php echo get_permalink($options['print']); ?>?move=<?= $options['move']; ?>&pdf=<?= $options['print']; ?>" onclick="javascript:return confirm('Are You Sure You Would Like to Print and Move These Contacts to the Next Sequence?')">Print & Move</a>
                                         <?php } ?>
                                         </td>
 
                                         <td colspan="2">
-                                            <button type="submit" value="<?= $options['move']; ?>" name="submitMove" id="btnMove" class="btn btn-primary">Move selected list to step <?= $options['move']; ?></button>
+                                        <?php if (count($this->checkcontent) >= 1) { ?>
+                                            <button data-tog="tooltip" title="This will only move selected people to the next sequence."  type="submit" value="<?= $options['move']; ?>" name="submitMove" id="btnMove" class="btn btn-primary">Move selected list to step <?= $options['move']; ?></button>
+                                        <?php } ?>    
                                         </td>
                                         <?php
                                     }
@@ -192,6 +196,7 @@ class TableEVList {
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Shortcode helper</h4>
+                                <p>You can place a shortcode into your letter and it will populate information that you've uploaded. For example, if you put Hello <strong>[fname]</strong>, it will populate the first name of everyone that is in that sequence for each letter. Letter 1 may say "Hello <strong>John</strong>", Letter 2 may say "Hello <strong>Teresa</strong>", etc.</p>
                             </div>
                             <div class="modal-body">
                                 <table class="table table-striped">
@@ -236,7 +241,7 @@ class TableEVList {
                                         </tr>
                                         <tr>
                                             <td>[myphone]</td>
-                                            <td>Your Phone (<?= get_user_meta($userid, 'phone', true); ?>)</td>
+                                            <td>Your Phone (<?= get_user_meta($userid, 'phoneMarketing', true); ?>)</td>
                                         </tr>
                                         <tr>
                                             <td>[mywebsite]</td>
@@ -250,6 +255,27 @@ class TableEVList {
                                             <td>[myemail]</td>
                                             <td>Your Email (<?= $current_user->user_email; ?>)</td>
                                         </tr>
+                                        <tr>
+                                            <td>[mysignature]</td>
+                                            <td><strong><?= get_user_meta($userid, 'marketing_fname', true) . " " . get_user_meta($userid, 'marketing_lname', true) ?></strong><br> <?= get_user_meta($userid, 'company', true); ?> <br><?= get_user_meta($userid, 'phoneMarketing', true); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>[mysignaturephoto]</td>
+                                            <td>
+
+                                            <table style="border:none;">
+                                                <tbody>
+                                                <tr style="border:none;">
+                                                    <td style="border:none;"><img src="<?= get_signature_url(); ?>" alt="signature" style="width:150px"></td>
+                                                    <td style="border:none;"><strong><?= get_user_meta($userid, 'marketing_fname', true) . " " . get_user_meta($userid, 'marketing_lname', true) ?></strong><br> <?= get_user_meta($userid, 'company', true); ?> <br><?= get_user_meta($userid, 'phoneMarketing', true); ?></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                            </td>
+                                        </tr>
+
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -265,7 +291,7 @@ class TableEVList {
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal<?= $options['step']; ?>">Shortcode Helper</button>
                     <form action="" method="POST">
                         <?php
-                            $settings = array( 'media_buttons' => false, 'editor_height' => '300' );
+                            $settings = array( 'media_buttons' => false, 'editor_height' => '300', 'quicktags' => false );
                             wp_editor($options['editorValue'], 'editorContent' . $options['step'], $settings);
                         ?>
                         <br/>
@@ -274,6 +300,11 @@ class TableEVList {
                         <input type="submit" class="btn btn-primary" name="submitContent" value="SAVE LETTER"/>
                     </form>
                 </div>
+                <script>
+                    $(document).ready(function(){
+                        $('[data-tog="tooltip"]').tooltip();   
+                    });
+                </script>
             <?php
         }
     }

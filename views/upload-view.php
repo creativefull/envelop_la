@@ -17,6 +17,7 @@
                 <ul class="alert alert-default">
                     <li>Format should be First Name, Last Name, Address 1, Address 2, City, State, Zipcode (<a target="_blank" href="<?= content_url(); ?>/uploads/2018/01/demo_format_la_contact.csv">Download Sample</a>)</li>
                 </ul>
+                <img src="<?= content_url(); ?>/uploads/2018/01/csv.png" alt="csv image">;
             </div>
         </div>
 
@@ -39,11 +40,11 @@
 <?php
     } else {
         ?>
-        <p class="alert alert-warning">Before upload the data, you need to edit your company name, your phone and your website(if any) on your profile</p>
+        <p class="alert alert-warning">Before you upload the data, you need to edit your company name, phone, and your website(if any) on your profile.</p>
         <form action="" method="POST">
-            <div class="form-group">
+            <div class="form-group" style="display:none">
                 <label>Company Name</label>
-                <input type="text" name="companyName" class="form-control" value="<?= $companyName; ?>" />
+                <input type="text" name="companyName" class="form-control" value="United Property Buyers" />
             </div>
             <div class="form-group">
                 <label>First Name</label>
@@ -57,9 +58,9 @@
                 <label>Enter Phone Number Here</label>
                 <input type="phone" name="phoneNumber" class="form-control" value="<?= $phoneName; ?>"/>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display:none">
                 <label>Website</label>
-                <input type="website" name="websiteURL" class="form-control" value="<?= $userdata->user_url ; ?>" />
+                <input type="website" name="websiteURL" class="form-control" value="www.UnitedPropertyBuyers.com" />
             </div>
             <input type="submit" name="submitCompany" value="UPDATE"/>
         </form>

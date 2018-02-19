@@ -8,10 +8,14 @@
             if ($result && count($result) > 0) {
                 return $result[0]->content;
             } else {
-                return '';
+                // Hook 
+                $dataheaderdefault = "<img src=\"https://www.legendaryagent.com/wp-content/uploads/2018/02/UnitedLogoBlue.jpg\" alt=\"UnitedLogo\" height=\"70px\">";
+                // return '';
+                return $dataheaderdefault;
             }
         }
     }
+
     function getLogo($userid) {
         $logoMeta = get_user_meta($userid, 'companyLogo', true);
         return $logoMeta;

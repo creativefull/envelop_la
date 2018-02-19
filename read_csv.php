@@ -1,5 +1,5 @@
 <?php
-
+ini_set("auto_detect_line_endings", true);
 class ReadCSV {
     private $csv_file;
     private $err_msg;

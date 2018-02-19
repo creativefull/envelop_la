@@ -119,6 +119,7 @@ if (!function_exists('envelope_marketing_la')) {
         $phoneName = get_user_meta($userid, 'phoneMarketing', true);
         $fname = get_user_meta($userid, 'marketing_fname', true);
         $lname = get_user_meta($userid, 'marketing_lname', true);
+       
 
         // IF MODIFY CONTENT
         if (@$_POST['submitHFEL']) {
@@ -130,15 +131,24 @@ if (!function_exists('envelope_marketing_la')) {
             // update_user_meta($userid, 'company', $_POST['companyName']);
             update_user_meta($userid, 'phoneMarketing', $_POST['phone']);
             update_user_meta($userid, 'marketing_fname', $_POST['fname']);
-            update_user_meta($userid, 'marketing_fname', $_POST['lname']);
+            update_user_meta($userid, 'marketing_lname', $_POST['lname']);
             wp_update_user( array( 'ID' => $userid, 'user_url' => $_POST['website'] ) );
 
             print_r("<p class=\"alert alert-success\">Update successfull</p>");
         }
+
+        // Hook of Image on Header
+        $dataheaderdefault = "<img src=\"https://www.legendaryagent.com/wp-content/uploads/2018/02/UnitedLogoBlue.jpg\" alt=\"UnitedLogo\" height=\"70px\">";
+
         $data = array(
-            'headerContent' => $ContentHeader->get(0) != "" ? $ContentHeader->get(0) : "<p style=\"font-size: 10px\">Insert Your Company Name Here<br/>Insert your phone here<br/>Insert Your Address Here</p>",
+            'headerContent' => $ContentHeader->get(0) != "" ? $ContentHeader->get(0) : $dataheaderdefault ,
             'footerContent' => $ContentFooter->get(0),
-            'envelopeContent' => $ContentEnvelope->get(0) != "" ? $ContentEnvelope->get(0) : "<p style=\"padding-left: 420px;\"><strong>Attn : [fname] [lname]</strong>
+            'envelopeContent' => $ContentEnvelope->get(0) != "" ? $ContentEnvelope->get(0) : "<b>[myname]</b>
+            [mycompany]
+            [myphone]
+            
+            &nbsp;
+            <p style='padding-left: 300px;'><strong>Attn : [fname] [lname]</strong>
             [address1] [address2]
             [city] [state] [zipcode]</p>",
             'companyLogo' => $ContentLogo->getLogo(),
@@ -226,9 +236,10 @@ if (!function_exists('envelope_marketing_la')) {
             $nextStep = $atts['step'] + 1;
             $nextData = $wpdb->get_results("SELECT userid FROM tbl_env_market WHERE userid ='" . $userid . "' AND strategy='" . $strategy . "' AND seq ='" . $nextStep . "' ORDER BY created_at DESC LIMIT 0,1");
             if (count($nextData) >= 1) {
-                echo "<p class=\"alert alert-warning\">Previous Sent Mailers - View (On progress ...)";
+                echo "<p class=\"alert alert-warning\">Previous Sent Mailers <a href=\"#\">here</a>";
             } else {
-                echo "<p class=\"alert alert-warning\">No Contact Found</p>";
+                echo "<p class=\"alert alert-warning\">
+                No Contacts Found - Contacts Must Be Moved Into This Step First.</p>";
             }
         }
     }
@@ -288,14 +299,14 @@ if (!function_exists('envelope_marketing_la')) {
                 if ($UserModel->isExists($params)) {
                     $skip++;
                 } else {
-                    $object = array("('" . $userid . "', '".$seq."','".$d['fname']."','".$d['lname']."', '".$d['address1']."','".$d['address2']."','".$d['city']."','".$d['state']."','".$d['zipcode']."', '" . $strategy . "')");
+                    $object = array("('" . $userid . "', '".$seq."','".$d['fname']."','".$d['lname']."', '".$d['address1']."','".$d['address2']."','".$d['city']."','".$d['state']."','".$d['zipcode']."', '" . $strategy . "','" . date("Y-m-d H:i:s") . "' )");
                     $dataQuery[] = join(",", $object);
                 }
             }
 
             if (count($dataQuery) > 0) {
                 $dataHasil = (join(",", $dataQuery));
-                $querySQL = "INSERT INTO tbl_env_market (userid, seq, fname, lname, address1, address2, city, state, zipcode, strategy) VALUES $dataHasil";
+                $querySQL = "INSERT INTO tbl_env_market (userid, seq, fname, lname, address1, address2, city, state, zipcode, strategy, created_at) VALUES $dataHasil";
                 $wpdb->query($querySQL) or die ('Something wrong');
                 $_SESSION['status_upload'] = 'ok';
                 $_SESSION['message_upload'] = 'Data Successfully Uploaded';

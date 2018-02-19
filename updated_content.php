@@ -108,7 +108,13 @@
             get_currentuserinfo();
 
             $userinfo = wp_get_current_user();
-            $name = $current_user->user_firstname . " " . $current_user->user_lastname;
+            if (!empty(get_user_meta($userinfo->ID, 'marketing_fname', true) )) :
+                $name = get_user_meta($userinfo->ID, 'marketing_fname', true). " " . get_user_meta($userinfo->ID, 'marketing_lname', true);
+            else :
+                $name = $current_user->user_firstname . " " . $current_user->user_lastname;
+            endif;
+
+
             if (empty ($_GET[envelope])) {
                 // This for Letter
                 $strx = "SELECT M.*, C.content FROM tbl_env_market as M INNER JOIN tbl_content_env AS C ON (C.userid = M.userid && C.step = M.seq) WHERE M.userid='$userinfo->id' AND M.seq=$step";
@@ -121,7 +127,19 @@
             $company = get_user_meta($userinfo->ID, 'company', true);
             $website = $current_user->user_url;
             $email = $current_user->user_email;
-            $phone = get_user_meta($userinfo->ID, 'phone', true);
+            $phone = get_user_meta($userinfo->ID, 'phoneMarketing', true);
+            $signature = '<b>' . get_user_meta($userinfo->ID, 'marketing_fname', true) . ' ' . get_user_meta($userinfo->ID, 'marketing_lname', true) . '</b>
+            ' . get_user_meta($userinfo->ID, 'company', true) . '<br>' . get_user_meta($userinfo->ID, 'phoneMarketing', true) . '';
+            $signaturephoto = 
+            '<table style="border:none;">
+            <tbody>
+            <tr style="border:none;">
+                <td style="border:none;"><img src="'. get_signature_url() .'" alt="signature" style="max-width:200px"></td>
+                <td style="border:none;padding-left:40px;"><b>' . get_user_meta($userinfo->ID, 'marketing_fname', true) . ' ' . get_user_meta($userinfo->ID, 'marketing_lname', true) . '</b>
+                ' . get_user_meta($userinfo->ID, 'company', true) . '<br>' . get_user_meta($userinfo->ID, 'phoneMarketing', true) . '</td>
+            </tr>
+            </tbody>
+            </table> ';   
 
             if (count($query) > 0) {
                 foreach($query as $q) {
@@ -137,7 +155,9 @@
                         '[myname]',
                         '[myphone]',
                         '[mywebsite]',
-                        '[myemail]'
+                        '[myemail]',
+                        '[mysignature]',
+                        '[mysignaturephoto]'
                     );
                     $replaceFormat = array(
                         $q->fname,
@@ -151,7 +171,9 @@
                         $name,
                         $phone,
                         $website,
-                        $email
+                        $email,
+                        $signature,
+                        $signaturephoto
                     );
                     $content[] = str_replace($searchFormat, $replaceFormat, $q->content);
                 }

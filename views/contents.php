@@ -54,7 +54,7 @@
                 <div class="form-group">
                     <label>Content</label>
                     <?php
-                        $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
+                        $settings = array( 'editor_height' => '60', 'quicktags' => false );
                         wp_editor($data['content'], 'editorContent', $settings);
                     ?>
                 </div>
@@ -75,39 +75,47 @@
                     ?>
                     <input type="hidden" name="companyLogo" value="<?= $data['companyLogo']; ?>"/>
                 </div>
-                <div class="form-group">
-                    <label style="position:absolute;">Header</label>
+                <div class="form-group" style="display:none">
+                    <label>Header</label>
                     <?php
-                        $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
+                        $settings = array( 'media_buttons' => false, 'editor_height' => '80', 'quicktags' => false );
                         wp_editor($data['headerContent'], 'headerContent', $settings);
                     ?>
                 </div>
                 <div class="form-group">
-                    <label style="position:absolute;">Envelope</label>
+                    <label>Envelope</label>
                     <?php
-                        $settings = array( 'media_buttons' => false, 'editor_height' => '60' );
+                        $settings = array( 'media_buttons' => false, 'editor_height' => '80', 'quicktags' => false );
                         wp_editor($data['envelopeContent'], 'envelopeContent', $settings);
                     ?>
                 </div>
                 <div class="form-group">
-                    <label>First Name</label>
-                    <input type="text" name="fname" class="form-control" value="<?= $data['fname']; ?>"/>
+                    <div class="row">
+                        <div class="col-lg-6">
+                        <label>First Name</label>
+                        <input type="text" name="fname" class="form-control" value="<?= $data['fname']; ?>"/>
+                        </div><div class="col-lg-6">
+                        <label>Last Name</label>
+                        <input type="text" name="lname" class="form-control" value="<?= $data['lname']; ?>"/>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label>Last Name</label>
-                    <input type="text" name="lname" class="form-control" value="<?= $data['lname']; ?>"/>
+                    <div class="row">
+                        <div class="col-lg-6">
+                        <label>Phone</label>
+                        <input type="phone" name="phone" value="<?= $data['phone']; ?>" class="form-control"/>
+                        </div><div class="col-lg-6">
+                        <label>Website</label>
+                        <input type="website" name="website" value="<?= $data['website']; ?>" class="form-control"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input type="phone" name="phone" value="<?= $data['phone']; ?>" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <label>Website</label>
-                    <input type="website" name="website" value="<?= $data['website']; ?>" class="form-control"/>
-                </div>
+
                 <input type="submit" name="submitHFEL" class="btn btn-primary" value="Modify Content"/>
             </form>
-            <?php            
+            
+            <?php        
         }
     }
 ?>
