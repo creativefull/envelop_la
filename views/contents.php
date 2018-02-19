@@ -44,6 +44,10 @@
             ?>
             <form action="" method="POST">
                 <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" placeholder="Title" value="<?= $data['title']; ?>" name="title"/>
+                </div>
+                <div class="form-group">
                     <label>Step</label>
                     <input type="number" placeholder="Step" value="<?= $data['step']; ?>" name="step"/>
                 </div>

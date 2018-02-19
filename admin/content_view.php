@@ -25,6 +25,10 @@
                             <input type="text" name="title" value="<?= $data['title']; ?>"/>
                         </div>
                         <div class="form-group">
+                            <label>Strategy</label>
+                            <input type="text" name="strategy" value="<?= $data['strategy']; ?>" readonly/>
+                        </div>
+                        <div class="form-group">
                             <label>Step</label>
                             <input type="text" name="step" value="<?= $data['step']; ?>" readonly/>
                         </div>

@@ -86,7 +86,7 @@ if (!function_exists('envelope_marketing_la')) {
         // IF MODIFY CONTENT
         if (@$_POST['submitContent']) {
             $Content->setStrategy($_POST['strategy']);
-            $updatedContent = $Content->save($_POST['step'], $_POST['editorContent']);
+            $updatedContent = $Content->save($_POST['step'], $_POST['editorContent'], 'default', $_POST['title']);
             print_r($updatedContent);
         }
         if (@$_GET['id']) {
