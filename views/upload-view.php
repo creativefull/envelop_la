@@ -26,6 +26,7 @@
                 <form action="" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="hidden" name="step" value="<?= $atts['step']; ?>"/>
+                        <input type="hidden" name="strategy" value="<?= $atts['strategy']; ?>"/>
                         <label class="label-control" for="file">Select File</label>
                         <input type="file" class="form-control" id="file" name="csv_file"/>
                     </div>
